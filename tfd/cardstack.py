@@ -15,9 +15,6 @@ class CardStack(object):
         return self._cards[-1]
 
     def empty(self):
-        
-        if len(self._cards) == 0:
-            return True
-        return False
+        return not self._cards
 
 
