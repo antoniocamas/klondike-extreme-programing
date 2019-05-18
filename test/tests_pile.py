@@ -1,65 +1,7 @@
 import unittest
-from tfd.suit import Suit
-from tfd.color import Color
-
-class SuitTests(unittest.TestCase):
-
-    def test_GivenASuitwithInitials_WhenInitials_ThenReturnedInitials(self):
-        self.assertEqual(Suit.initials(), ['H', 'D', 'C', 'P'])
-
-    def test_getColor(self):
-        self.assertEqual(Suit.HEARTS.getColor(), Color.RED)
-
-    def test_GivenAInitialH_ReturnTheSuitHeart(self):
-        self.assertEqual(Suit.find('H'), Suit.HEARTS)
-
-    def test_GivenAInitialNotExistant_returnNone(self):
-        self.assertIsNone(Suit.find('A'))
-
-
-
-import unittest
 from tfd.card import Card
+from tfd.suit import Suit
 from tfd.number import Number
-from tfd.test.card_builder import CardBuilder
-        
-class CardTest(unittest.TestCase):
-
-
-    def test_Given2CardsThatAreEqual_WhenCompared_ReturnTrue(self):
-
-        card = CardBuilder().build()
-        otherCard = CardBuilder().build()
-
-        self.assertTrue(card==otherCard)
-    
-    def test_Given2CardsDifferent_WhenCompared_ReturnFalse(self):
-
-        card = CardBuilder().suit(Suit.HEARTS).build()
-        otherCard = CardBuilder().suit(Suit.DIAMONDS).build()
-
-        self.assertFalse(card==otherCard)
-        
-    def test_GivenACard_Whenfliped_isFaceUpChanges(self):
-        card = CardBuilder().build()
-        self.assertFalse(card.isFaceUp())
-        card.flip()
-        self.assertTrue(card.isFaceUp())
-
-    def test_GivenACardandTheNExt_WhenisNextToCalled_ReturnTrue(self):
-        card = CardBuilder().suit(Suit.PIKES).number(Number.QUEEN).build()
-        cardOther = CardBuilder().suit(Suit.PIKES).number(Number.JACK).build()
-        self.assertTrue(card.isNextTo(cardOther))
-
-    def test_GivenACardandNotTheNExt_WhenisNextToCalled_ReturnFalse(self):
-        card = CardBuilder().suit(Suit.PIKES).number(Number.QUEEN).build()
-        cardOther = CardBuilder().suit(Suit.PIKES).number(Number.JACK).build()
-        self.assertFalse(cardOther.isNextTo(card))
-
-    def test_GivenACard_WhenConvertedToString_ThenTheStrIsReturned(self):
-        card = CardBuilder().build()
-        self.assertEqual(card.toString(), "Suit.CLOVERS Number.ACE")
-
 from tfd.test.card_builder import CardBuilder
 from tfd.test.pile_builder import PileBuilder
 from tfd.pile import Pile
@@ -174,52 +116,3 @@ class PileTest(unittest.TestCase):
         cardCK = CardBuilder().number(Number.QUEEN).faceUp().build()
         pile = PileBuilder().build()
         self.assertFalse(pile.fitsIn(cardCK))
-
-
-from tfd.test.foundation_builder import FoundationBuilder
-from tfd.test.card_builder import CardBuilder
-from tfd.foundation import Foundation
-        
-class FoundationTest(unittest.TestCase):
-
-    def test_GivenACompletePile_whenIsCompleteAsked_ReturnTrue(self):
-        foundation = FoundationBuilder().cards(13).build()
-        self.assertTrue(foundation.isComplete())
-        
-    def test_GivenAnotCompletePile_whenIsCompleteAsked_ReturnFalse(self):
-        foundation = FoundationBuilder().cards(1).build()
-        self.assertFalse(foundation.isComplete())
-
-    def test_GivenAemptyFoundation_whenAceofSuitAsksFitsIn_ReturnTrue(self):
-        foundation = FoundationBuilder().suit(Suit.PIKES).build()
-        card = CardBuilder().suit(Suit.PIKES).number(Number.ACE).build()
-        self.assertTrue(foundation.fitsIn(card))
-        
-    def test_GivenAemptyFoundation_whenAceofOtherSuitAsksFitsIn_ReturnFalse(self):
-        foundation = FoundationBuilder().suit(Suit.CLOVERS).build()
-        card = CardBuilder().suit(Suit.PIKES).number(Number.ACE).build()
-        self.assertFalse(foundation.fitsIn(card))
-        
-    def test_GivenNotemptyFoundation_whenCardMuchBiggerAskFitsIn_ReturnFalse(self):
-        foundation = FoundationBuilder().suit(Suit.PIKES).cards(3).build()
-        card = CardBuilder().suit(Suit.PIKES).number(Number.FIVE).build()
-        self.assertFalse(foundation.fitsIn(card))
-
-    def test_GivenNotemptyFoundation_whenCardOtherSuitAskFitsIn_ReturnFalse(self):
-        foundation = FoundationBuilder().suit(Suit.PIKES).cards(3).build()
-        card = CardBuilder().suit(Suit.CLOVERS).number(Number.FOUR).build()
-        self.assertFalse(foundation.fitsIn(card))
-        
-    def test_GivenNotemptyFoundation_whenCardthatFitsAskFitsIn_ReturnTrue(self):
-        foundation = FoundationBuilder().suit(Suit.PIKES).cards(3).build()
-        card = CardBuilder().suit(Suit.PIKES).number(Number.FOUR).build()
-        self.assertTrue(foundation.fitsIn(card))
-
-    def test_GivenemptyFoundation_whenAskEmpty_ReturnTrue(self):
-        foundation = FoundationBuilder().build()
-        self.assertTrue(foundation.empty())
-
-        
-if __name__ == '__main__':
-    unittest.main()
-                                            
