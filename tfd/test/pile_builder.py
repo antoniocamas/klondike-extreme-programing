@@ -12,6 +12,10 @@ class PileBuilder(object):
         self._cards.append(card)
         return self
 
+    def number(self, number):
+        self._number = number
+        return self
+
     def build(self):
         return Pile(self._number, self._cards)
     

@@ -4,8 +4,8 @@ from tfd.number import Number
 
 class Stock(CardStack):
 
-    def __init__(self):
-        super(Stock, self).__init__(list())
+    def __init__(self, cards=list()):
+        super(Stock, self).__init__(cards)
 
     def takeTop(self, numberOfCards):
         retCards = list()

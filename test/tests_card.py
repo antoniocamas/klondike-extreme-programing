@@ -39,5 +39,5 @@ class CardTest(unittest.TestCase):
 
     def test_GivenACard_WhenConvertedToString_ThenTheStrIsReturned(self):
         card = CardBuilder().build()
-        self.assertEqual(card.toString(), "Suit.CLOVERS Number.ACE")
+        self.assertEqual(card.toString(), "Suit.CLOVERS Number.ACE D")
 

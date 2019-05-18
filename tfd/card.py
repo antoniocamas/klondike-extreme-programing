@@ -11,7 +11,8 @@ class Card(object):
 
     def __eq__(self, other):
         if self._suit == other._suit and \
-           self._number == other._number:
+           self._number == other._number and \
+           self._faceUp == other._faceUp:
             return True
 
         return False
@@ -45,4 +46,6 @@ class Card(object):
         return False
 
     def toString(self):
-        return "{} {}".format(str(self._suit), str(self._number))
+        return "{} {} {}".format(
+            str(self._suit), str(self._number),
+            "U" if self.isFaceUp() else "D")

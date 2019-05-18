@@ -19,10 +19,6 @@ class PileTest(unittest.TestCase):
         card = CardBuilder().faceUp().build()
         self.assertEqual(PileBuilder().card(card).build().numberOfFaceUpCards(), 1)
 
-    def test_GivenAPileWithoutCardsFaceUp_WhenNumberOfFaceUpCards_ReturnZero(self):
-        card = CardBuilder().suit(Suit.HEARTS).build()
-        self.assertEqual(PileBuilder().card(card).build().numberOfFaceUpCards(), 0)
-
     def test_GivenAPileWithoutCards_WhenNumberOfFaceUpCards_ReturnZero(self):
         card = CardBuilder().faceUp().build()
         self.assertEqual(PileBuilder().build().numberOfFaceUpCards(), 0)
@@ -88,24 +84,17 @@ class PileTest(unittest.TestCase):
         pile.removeTop(1)
         self.assertTrue(pile.empty())
 
-
-    def test_GivenAPileWithFaceUpDiamodQ_WhenCloverKAskIfFits_ReturnTrue(self):
-        cardDQ = CardBuilder().suit(Suit.DIAMONDS).number(Number.QUEEN).faceUp().build()
-        cardCK = CardBuilder().suit(Suit.CLOVERS).number(Number.KING).faceUp().build()
-        pile = PileBuilder().card(cardDQ).build()
-        self.assertTrue(pile.fitsIn(cardCK))
+    def test_GivenAPileWithCards_WhenACardThatFitsAskIfFits_ReturnTrue(self):
+        cardCandidate = CardBuilder().suit(Suit.DIAMONDS).number(Number.QUEEN).faceUp().build()
+        cardInPile = CardBuilder().suit(Suit.CLOVERS).number(Number.KING).faceUp().build()
+        pile = PileBuilder().card(cardInPile).build()
+        self.assertTrue(pile.fitsIn(cardCandidate))
         
-    def test_GivenAPileWithFaceDownDiamodQ_WhenCloverKAskIfFits_ReturnFalse(self):
-        cardDQ = CardBuilder().suit(Suit.DIAMONDS).number(Number.QUEEN).build()
-        cardCK = CardBuilder().suit(Suit.CLOVERS).number(Number.KING).faceUp().build()
-        pile = PileBuilder().card(cardDQ).build()
-        self.assertFalse(pile.fitsIn(cardCK))
-
-    def test_GivenAPileWithFaceUpDiamodQ_WhenDIAMONDKAskIfFits_ReturnFalse(self):
-        cardDQ = CardBuilder().suit(Suit.DIAMONDS).number(Number.QUEEN).faceUp().build()
-        cardCK = CardBuilder().suit(Suit.DIAMONDS).number(Number.KING).faceUp().build()
-        pile = PileBuilder().card(cardDQ).build()
-        self.assertFalse(pile.fitsIn(cardCK))
+    def test_GivenAPileWithAColor_WhenSameColorAskIfFits_ReturnFalse(self):
+        cardCandidate = CardBuilder().suit(Suit.HEARTS).number(Number.QUEEN).faceUp().build()
+        cardInPile = CardBuilder().suit(Suit.DIAMONDS).number(Number.KING).faceUp().build()
+        pile = PileBuilder().card(cardInPile).build()
+        self.assertFalse(pile.fitsIn(cardCandidate))
 
     def test_GivenAEmptyPile_WhenKingAskIfFits_ReturnTrue(self):
         cardCK = CardBuilder().number(Number.KING).faceUp().build()

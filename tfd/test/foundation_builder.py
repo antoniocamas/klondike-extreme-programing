@@ -19,7 +19,9 @@ class FoundationBuilder(object):
     
     def cards(self, numberOfCards):
         for number in Number:
-            self._cards.append(Card(self._suit, number))
+            card = Card(self._suit, number)
+            card.flip()
+            self._cards.append(card)
             if len(self._cards) == numberOfCards:
                 return self
         return self

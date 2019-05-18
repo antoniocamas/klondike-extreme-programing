@@ -7,7 +7,8 @@ class Pile(CardStack):
         super(Pile, self).__init__(cards)
         self._number = number
         self._numberOfFaceUpCards = None
-        
+        self._flipFirstCard()
+
     def getNumber(self):
         return self._number
 
@@ -47,7 +48,7 @@ class Pile(CardStack):
 
 
     def fitsIn(self, card):
-        if not self._cards:
+        if self.empty():
             if card.getNumber() == Number.KING:
                 return True
             else:
@@ -61,7 +62,7 @@ class Pile(CardStack):
         if topCard.getColor() == card.getColor():
             return False
         
-        if topCard.getNumber().getValue() + 1 == card.getNumber().getValue():
+        if topCard.getNumber().getValue() - 1 == card.getNumber().getValue():
             return True
         
         return False

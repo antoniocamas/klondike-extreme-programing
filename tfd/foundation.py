@@ -18,6 +18,9 @@ class Foundation(CardStack):
         if self._suit != card.getSuit():
             return False
 
+        if not card.isFaceUp():
+            return False
+
         if self.empty():
            if card.getNumber() == Number.ACE:
                return True

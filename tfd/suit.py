@@ -5,8 +5,8 @@ _INITIALS = []
 
 class Suit(Enum):
     HEARTS = (Color.RED, 'H')
-    DIAMONDS = (Color.RED, 'D')
     CLOVERS = (Color.BLACK, 'C')
+    DIAMONDS = (Color.RED, 'D')
     PIKES = (Color.BLACK, 'P')
 
     

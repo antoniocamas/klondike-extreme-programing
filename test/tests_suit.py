@@ -5,7 +5,7 @@ from tfd.color import Color
 class SuitTests(unittest.TestCase):
 
     def test_GivenASuitwithInitials_WhenInitials_ThenReturnedInitials(self):
-        self.assertEqual(Suit.initials(), ['H', 'D', 'C', 'P'])
+        self.assertEqual(Suit.initials(), ['H', 'C', 'D', 'P'])
 
     def test_getColor(self):
         self.assertEqual(Suit.HEARTS.getColor(), Color.RED)
