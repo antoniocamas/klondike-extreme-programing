@@ -6,9 +6,9 @@ from tfd.pile import Pile
 from tfd.waste import Waste
 from tfd.stock import Stock
 from tfd.game import Game
-from tfd.test.foundation_builder import FoundationBuilder
-from tfd.test.pile_builder import PileBuilder
-from tfd.test.card_builder import CardBuilder
+from builders.foundation_builder import FoundationBuilder
+from builders.pile_builder import PileBuilder
+from builders.card_builder import CardBuilder
 
 class GameBuilder(object):
 
@@ -65,8 +65,7 @@ class GameBuilder(object):
     def wasteNotEmpty(self):
         cards = list()
         for suit, number in zip(Suit, Number):
-            cards.append(CardBuilder().suit(suit).number(number).build())
-            cards[-1].flip()
+            cards.append(CardBuilder().suit(suit).number(number).faceUp().build())
         self._waste = Waste(cards)
         return self
 

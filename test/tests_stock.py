@@ -1,5 +1,5 @@
 import unittest
-from tfd.test.stock_builder import StockBuilder
+from builders.stock_builder import StockBuilder
 
 class StockTest(unittest.TestCase):
 

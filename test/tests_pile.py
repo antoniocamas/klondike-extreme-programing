@@ -2,8 +2,8 @@ import unittest
 from tfd.card import Card
 from tfd.suit import Suit
 from tfd.number import Number
-from tfd.test.card_builder import CardBuilder
-from tfd.test.pile_builder import PileBuilder
+from builders.card_builder import CardBuilder
+from builders.pile_builder import PileBuilder
 from tfd.pile import Pile
         
 class PileTest(unittest.TestCase):

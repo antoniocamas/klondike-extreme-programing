@@ -1,6 +1,7 @@
 import unittest
-from tfd.test.game_builder import GameBuilder
-from tfd.test.card_builder import CardBuilder
+from builders.game_builder import GameBuilder
+from builders.card_builder import CardBuilder
+from operations.cardstack import CardStackOperations
 from tfd.error import Error
 from tfd.suit import Suit
 from tfd.number import Number
@@ -49,33 +50,14 @@ class GameTest(unittest.TestCase):
         game = GameBuilder().wasteWithAce(Suit.PIKES).build()
         self.assertEqual(game.moveFromWasteToFoundation(Suit.CLOVERS), Error.NO_FIT_FOUNDATION)
 
-
     def test_GivenAGameWithEmptyStock_whenmoveFromWasteToStock_TheCardsAreMoved(self):
         game = GameBuilder().wasteNotEmpty().stockEmpty().build()
+        expected_cards = CardStackOperations(game.getWaste()).getFlippedCards()
+        expected_cards.reverse()
         self.assertIsNone(game.moveFromWasteToStock())
-        self.assertEquals(
-            self._getCardsInStock(game.getStock()),
-            self._getExpectedCardsInStock())
+        self.assertListEqual(CardStackOperations(game.getStock()).getCards(), expected_cards)
         self.assertTrue(game.getWaste().empty())
-
-    def _getExpectedCardsInStock(self):
-        game = GameBuilder().wasteNotEmpty().stockEmpty().build()
-        waste = game.getWaste()
-        cards = list()
-        while not waste.empty():
-            card = waste.pop()
-            card.flip()
-            cards.append(card)
-
-        cards.reverse()
-        return cards
-
-    def _getCardsInStock(self, stock):
-        cards = list()
-        while not stock.empty():
-            cards.append(stock.pop())
-        return cards
-
+        
     def test_GivenAGameWithNotEmptyStock_whenmoveFromWasteToStock_ThenError(self):
         game = GameBuilder().wasteNotEmpty().build()
         self.assertEqual(game.moveFromWasteToStock(), Error.NO_EMPTY_STOCK)

@@ -2,7 +2,7 @@ import unittest
 from tfd.card import Card
 from tfd.suit import Suit
 from tfd.number import Number
-from tfd.test.card_builder import CardBuilder
+from builders.card_builder import CardBuilder
         
 class CardTest(unittest.TestCase):
 

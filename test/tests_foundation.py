@@ -1,6 +1,6 @@
 import unittest
-from tfd.test.foundation_builder import FoundationBuilder
-from tfd.test.card_builder import CardBuilder
+from builders.foundation_builder import FoundationBuilder
+from builders.card_builder import CardBuilder
 from tfd.foundation import Foundation
 from tfd.suit import Suit
 from tfd.number import Number
