@@ -59,7 +59,6 @@ class GameBuilder(object):
             self._waste = Waste(list())
 
         self._waste.push(card)
-
         return self
 
     def wasteNotEmpty(self):
@@ -76,7 +75,10 @@ class GameBuilder(object):
     def pileEmpty(self, pileNumber):
         self._game._piles[pileNumber-1] = PileBuilder().build()
         return self
-        
+
+    def pileWithFaceUpCards(self, pileNumber):
+        self._game._piles[pileNumber-1] = PileBuilder().fill1Down4FaceUp().build()
+        return self
 
     def build(self):
         self._game._foundations = self._foundations

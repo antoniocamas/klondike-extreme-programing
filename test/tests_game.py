@@ -16,7 +16,6 @@ class GameTest(unittest.TestCase):
         game = GameBuilder().finished().build()
         self.assertTrue(game.isFinished())
 
-
     def test_GivenAGame_whenClear_ThenTheGameInitialState(self):
         game = GameBuilder().finished().build()
         game.clear()
@@ -52,10 +51,10 @@ class GameTest(unittest.TestCase):
 
     def test_GivenAGameWithEmptyStock_whenmoveFromWasteToStock_TheCardsAreMoved(self):
         game = GameBuilder().wasteNotEmpty().stockEmpty().build()
-        expected_cards = CardStackOperations(game.getWaste()).getFlippedCards()
-        expected_cards.reverse()
+        expected_cards = CardStackOperations.fromCardStack(game.getWaste()).flip().reverse().getCards()
         self.assertIsNone(game.moveFromWasteToStock())
-        self.assertListEqual(CardStackOperations(game.getStock()).getCards(), expected_cards)
+        self.assertListEqual(
+            CardStackOperations.fromCardStack(game.getStock()).getCards(), expected_cards)
         self.assertTrue(game.getWaste().empty())
         
     def test_GivenAGameWithNotEmptyStock_whenmoveFromWasteToStock_ThenError(self):
@@ -87,12 +86,11 @@ class GameTest(unittest.TestCase):
         game = GameBuilder().build()
         self.assertEquals(game.moveFromWasteToPile(pileNumber), Error.EMPTY_WASTE)
 
-
     def test_GivenAGame_WhenMoveFromPileToFoundation_ThenCardIsMoved(self):
         pileNumber = 1
         cardToMove = CardBuilder().suit(Suit.PIKES).number(Number.ACE).faceUp().build()
-        game = GameBuilder().\
-               cardInPile(pileNumber, CardBuilder().build())\
+        game = GameBuilder()\
+               .cardInPile(pileNumber, CardBuilder().build())\
                .cardInPile(pileNumber, cardToMove)\
                .build()
         self.assertIsNone(game.moveFromPileToFoundation(pileNumber, Suit.PIKES))
@@ -111,127 +109,97 @@ class GameTest(unittest.TestCase):
                .cardInPile(pileNumber, CardBuilder().build())\
                .cardInPile(pileNumber, cardToMove)\
                .build()
-        self.assertEqual(game.moveFromPileToFoundation(pileNumber, Suit.HEARTS), Error.NO_FIT_FOUNDATION)
+        self.assertEqual(
+            game.moveFromPileToFoundation(pileNumber, Suit.HEARTS), Error.NO_FIT_FOUNDATION)
 
     def test_GivenAGame_WhenMoveFromFoundationToPile_ThenCardIsMoved(self):
         pileNumber = 1
         cardToMove = CardBuilder().suit(Suit.PIKES).number(Number.KING).faceUp().build()
         cardLeft = CardBuilder().suit(Suit.PIKES).number(Number.QUEEN).faceUp().build()
-        game = GameBuilder()\
-               .pileEmpty(pileNumber)\
-               .foundationComplete(Suit.PIKES)\
-               .build()
+        game = GameBuilder().pileEmpty(pileNumber).foundationComplete(Suit.PIKES).build()
         self.assertIsNone(game.moveFromFoundationToPile(Suit.PIKES, pileNumber))
         self.assertEqual(game.getPiles()[pileNumber-1].peek(), cardToMove)
         self.assertEqual(game.getFoundations()[Suit.PIKES].peek(), cardLeft)
 
     def test_GivenAEmptyFoundation_WhenMoveFromFoundationToPile_ThenError(self):
         pileNumber = 1
-        game = GameBuilder()\
-               .foundationEmpty(Suit.PIKES)\
-               .build()
-        self.assertEqual(game.moveFromFoundationToPile(Suit.PIKES, pileNumber), Error.EMPTY_FOUNDATION)
+        game = GameBuilder().foundationEmpty(Suit.PIKES).build()
+        self.assertEqual(
+            game.moveFromFoundationToPile(Suit.PIKES, pileNumber), Error.EMPTY_FOUNDATION)
 
     def test_GivenAMoveThatDontFit_WhenMoveFromFoundationToPile_ThenError(self):
         pileNumber = 1
         cardToMove = CardBuilder().suit(Suit.PIKES).number(Number.QUEEN).faceUp().build()
-        game = GameBuilder()\
-               .pileEmpty(pileNumber)\
-               .foundationComplete(Suit.PIKES)\
-               .build()
+        game = GameBuilder().pileEmpty(pileNumber).foundationComplete(Suit.PIKES).build()
         game.moveFromFoundationToPile(Suit.PIKES, pileNumber)
         self.assertEqual(game.moveFromFoundationToPile(Suit.PIKES, pileNumber), Error.NO_FIT_PILE)
 
-    def test_GivenAMoveThatFits_WhenMoveFromPileToPile_ThenCardsMove(self):
+    def test_GivenAMoveThatFits_WhenMoveFromPileToPile_ThenCardsMove2(self):
         pileNumberOrigin = 1
         pileNumberDest = 7
-        numberOfCardsToMove = 4
-        cardsInPile = self._getCardsFaceUpForPiles()
-        gameBuilder = GameBuilder()\
-                      .pileEmpty(pileNumberDest)\
-                      .pileEmpty(pileNumberOrigin)
-        for card in cardsInPile:
-            gameBuilder.cardInPile(pileNumberOrigin, card)
-        game = gameBuilder.build()
-        self.assertIsNone(game.moveFromPileToPile(pileNumberOrigin, pileNumberDest, numberOfCardsToMove))
-        self.assertEqual(game.getPiles()[pileNumberDest-1].pop(), cardsInPile[-1])
-        self.assertEqual(game.getPiles()[pileNumberDest-1].pop(), cardsInPile[-2])
-        self.assertEqual(game.getPiles()[pileNumberDest-1].pop(), cardsInPile[-3])
-        self.assertEqual(game.getPiles()[pileNumberDest-1].pop(), cardsInPile[-4])
-        self.assertEqual(game.getPiles()[pileNumberOrigin-1].pop(), cardsInPile[-5])
-        self.assertTrue(game.getPiles()[pileNumberOrigin-1].empty())
-
+        nCardsMoved = 4
+        game = GameBuilder().pileWithFaceUpCards(pileNumberOrigin).pileEmpty(pileNumberDest).build()
+        cardsInPile = CardStackOperations.fromCardStack(game.getPiles()[pileNumberOrigin-1]).getCards()
+        self.assertIsNone(game.moveFromPileToPile(pileNumberOrigin, pileNumberDest, nCardsMoved))
+        self.assertListEqual(
+            CardStackOperations.fromCardStack(game.getPiles()[pileNumberDest-1]).getCards(),
+            cardsInPile[len(cardsInPile)-nCardsMoved:])
+        
+    def test_GivenAMoveThatFits_WhenMoveFromPileToPile_ThenCardOriginFlipped(self):
+        pileNumberOrigin = 1
+        pileNumberDest = 7
+        nCardsMoved = 4
+        game = GameBuilder().pileWithFaceUpCards(pileNumberOrigin).pileEmpty(pileNumberDest).build()
+        cardsInPile = CardStackOperations.fromCardStack(game.getPiles()[pileNumberOrigin-1]).getCards()
+        self.assertIsNone(game.moveFromPileToPile(pileNumberOrigin, pileNumberDest, nCardsMoved))
+        cardsInPile[0].flip()
+        self.assertEqual(game.getPiles()[pileNumberOrigin-1].pop(), cardsInPile[0])
+        
     def test_GivenAMoveThatDontFit_WhenMoveFromPileToPile_ThenError(self):
         pileNumberOrigin = 1
         pileNumberDest = 7
-        numberOfCardsToMove = 3
-        cardsInPile = self._getCardsFaceUpForPiles()
-        gameBuilder = GameBuilder()\
-                      .pileEmpty(pileNumberDest)\
-                      .pileEmpty(pileNumberOrigin)
-        gameBuilder.cardInPile(pileNumberDest, CardBuilder().number(Number.ACE).build())
-        for card in cardsInPile:
-            gameBuilder.cardInPile(pileNumberOrigin, card)
-        game = gameBuilder.build()
-        self.assertEqual(game.moveFromPileToPile(pileNumberOrigin,
-                                                 pileNumberDest,
-                                                 numberOfCardsToMove),
-                         Error.NO_FIT_PILE)
+        nCardsMoved = 3
+        game = GameBuilder()\
+               .pileWithFaceUpCards(pileNumberOrigin)\
+               .cardInPile(pileNumberDest, CardBuilder().number(Number.ACE).build()).build()
+        self.assertEqual(
+            game.moveFromPileToPile(pileNumberOrigin, pileNumberDest, nCardsMoved),
+            Error.NO_FIT_PILE
+        )
         
     def test_GivenAMoveWithToManyCards_WhenMoveFromPileToPile_ThenError(self):
         pileNumberOrigin = 1
         pileNumberDest = 7
-        numberOfCardsToMove = 5
-        cardsInPile = self._getCardsFaceUpForPiles()
-        gameBuilder = GameBuilder()\
-                      .pileEmpty(pileNumberDest)\
-                      .pileEmpty(pileNumberOrigin)
-        for card in cardsInPile:
-            gameBuilder.cardInPile(pileNumberOrigin, card)
-        game = gameBuilder.build()
-        self.assertEqual(game.moveFromPileToPile(pileNumberOrigin,
-                                                 pileNumberDest,
-                                                 numberOfCardsToMove),
-                         Error.NO_ENOUGH_CARDS_PILE)
+        nCardsMoved = 5
+        game = GameBuilder()\
+               .pileWithFaceUpCards(pileNumberOrigin)\
+               .cardInPile(pileNumberDest, CardBuilder().number(Number.ACE).build()).build()
+        self.assertEqual(
+            game.moveFromPileToPile(pileNumberOrigin, pileNumberDest, nCardsMoved),
+            Error.NO_ENOUGH_CARDS_PILE
+        )
 
     def test_GivenAMove_WhenMoveFromPileToSamePile_ThenError(self):
         pileNumberOrigin = 1
         pileNumberDest = 1
-        numberOfCardsToMove = 1
-        cardsInPile = self._getCardsFaceUpForPiles()
-        gameBuilder = GameBuilder()\
-                      .pileEmpty(pileNumberDest)\
-                      .pileEmpty(pileNumberOrigin)
-        for card in cardsInPile:
-            gameBuilder.cardInPile(pileNumberOrigin, card)
-        game = gameBuilder.build()
-        self.assertEqual(game.moveFromPileToPile(pileNumberOrigin,
-                                                 pileNumberDest,
-                                                 numberOfCardsToMove),
-                         Error.SAME_PILE)
+        nCardsMoved = 1
+        game = GameBuilder()\
+               .pileWithFaceUpCards(pileNumberOrigin)\
+               .cardInPile(pileNumberDest, CardBuilder().number(Number.ACE).build()).build()
+        self.assertEqual(
+            game.moveFromPileToPile(pileNumberOrigin, pileNumberDest, nCardsMoved),
+            Error.SAME_PILE
+        )
 
     def test_GivenAMove_WhenMoveFromEmptyPileToPile_ThenError(self):
         pileNumberOrigin = 1
         pileNumberDest = 7
-        numberOfCardsToMove = 1
-        cardsInPile = self._getCardsFaceUpForPiles()
-        game = GameBuilder()\
-               .pileEmpty(pileNumberOrigin)\
-               .build()
-        self.assertEqual(game.moveFromPileToPile(pileNumberOrigin,
-                                                 pileNumberDest,
-                                                 numberOfCardsToMove),
-                         Error.EMPTY_PILE)
-
-    def _getCardsFaceUpForPiles(self):
-        cards = list()
-        cards.append(CardBuilder().number(Number.ACE).build())
-        for suit, number in zip(Suit, reversed(Number)):
-            card = CardBuilder().suit(suit).number(number).build()
-            card.flip()
-            cards.append(card)
-        return cards
-
+        nCardsMoved = 1
+        game = GameBuilder().pileEmpty(pileNumberOrigin).build()
+        self.assertEqual(
+            game.moveFromPileToPile(pileNumberOrigin, pileNumberDest, nCardsMoved),
+            Error.EMPTY_PILE
+        )
 
     def _areFoundationsInitialState(self, foundations):
         for _, foundation in foundations.items():

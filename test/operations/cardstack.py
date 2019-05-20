@@ -2,20 +2,29 @@ import copy
 
 class CardStackOperations(object):
 
-    def __init__(self, cardstack):
-        self._cardstack = copy.deepcopy(cardstack)
+    def __init__(self, cards):
+        self._cards = cards
 
-    def getCards(self):
-        cardstack = copy.deepcopy(self._cardstack)
+    @classmethod
+    def fromCardStack(cls, cardstack):
+        cardstack = copy.deepcopy(cardstack)
         cards = list()
         while not cardstack.empty():
             card = cardstack.pop()
             cards.append(card)
-        return cards
 
-    def getFlippedCards(self):
-        cards = self.getCards()
-        for card in cards:
+        cards.reverse()
+        return cls(cards)
+
+    def getCards(self):
+        return self._cards
+
+    def flip(self):
+        for card in self._cards:
             card.flip()
-        return cards
+        return self
+
+    def reverse(self):
+        self._cards.reverse()
+        return self
     
