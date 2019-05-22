@@ -1,7 +1,8 @@
 import unittest
 from builders.game_builder import GameBuilder
 from builders.card_builder import CardBuilder
-from operations.cardstack import CardStackOperations
+from helpers.cardstack import CardStackHelper
+from helpers.game import GameHelper
 from tfd.error import Error
 from tfd.suit import Suit
 from tfd.number import Number
@@ -20,10 +21,11 @@ class GameTest(unittest.TestCase):
         game = GameBuilder().finished().build()
         game.clear()
 
-        self.assertTrue(self._areFoundationsInitialState(game.getFoundations()))
-        self.assertTrue(self._arePilesInitialState(game.getPiles()))
-        self.assertTrue(game.getWaste().empty())
-        self.assertTrue(self._isStockInitialState(game.getStock()))
+        gameHelper = GameHelper(game)
+        self.assertTrue(gameHelper.areFoundationsInitialState())
+        self.assertTrue(gameHelper.arePilesInitialState())
+        self.assertTrue(gameHelper.isWasteInInitialState())
+        self.assertTrue(gameHelper.isStockInitialState())
         
     def test_GivenAGameWithCardInStock_WhenMoveFromStockToWaste_ThenNoCardMoved(self):
         game = GameBuilder().buid()
@@ -51,10 +53,10 @@ class GameTest(unittest.TestCase):
 
     def test_GivenAGameWithEmptyStock_whenmoveFromWasteToStock_TheCardsAreMoved(self):
         game = GameBuilder().wasteNotEmpty().stockEmpty().build()
-        expected_cards = CardStackOperations.fromCardStack(game.getWaste()).flip().reverse().getCards()
+        expected_cards = CardStackHelper.fromCardStack(game.getWaste()).flip().reverse().getCards()
         self.assertIsNone(game.moveFromWasteToStock())
         self.assertListEqual(
-            CardStackOperations.fromCardStack(game.getStock()).getCards(), expected_cards)
+            CardStackHelper.fromCardStack(game.getStock()).getCards(), expected_cards)
         self.assertTrue(game.getWaste().empty())
         
     def test_GivenAGameWithNotEmptyStock_whenmoveFromWasteToStock_ThenError(self):
@@ -139,10 +141,10 @@ class GameTest(unittest.TestCase):
         pileNumberDest = 7
         nCardsMoved = 4
         game = GameBuilder().pileWithFaceUpCards(pileNumberOrigin).pileEmpty(pileNumberDest).build()
-        cardsInPile = CardStackOperations.fromCardStack(game.getPiles()[pileNumberOrigin-1]).getCards()
+        cardsInPile = CardStackHelper.fromCardStack(game.getPiles()[pileNumberOrigin-1]).getCards()
         self.assertIsNone(game.moveFromPileToPile(pileNumberOrigin, pileNumberDest, nCardsMoved))
         self.assertListEqual(
-            CardStackOperations.fromCardStack(game.getPiles()[pileNumberDest-1]).getCards(),
+            CardStackHelper.fromCardStack(game.getPiles()[pileNumberDest-1]).getCards(),
             cardsInPile[len(cardsInPile)-nCardsMoved:])
         
     def test_GivenAMoveThatFits_WhenMoveFromPileToPile_ThenCardOriginFlipped(self):
@@ -150,7 +152,7 @@ class GameTest(unittest.TestCase):
         pileNumberDest = 7
         nCardsMoved = 4
         game = GameBuilder().pileWithFaceUpCards(pileNumberOrigin).pileEmpty(pileNumberDest).build()
-        cardsInPile = CardStackOperations.fromCardStack(game.getPiles()[pileNumberOrigin-1]).getCards()
+        cardsInPile = CardStackHelper.fromCardStack(game.getPiles()[pileNumberOrigin-1]).getCards()
         self.assertIsNone(game.moveFromPileToPile(pileNumberOrigin, pileNumberDest, nCardsMoved))
         cardsInPile[0].flip()
         self.assertEqual(game.getPiles()[pileNumberOrigin-1].pop(), cardsInPile[0])
@@ -201,23 +203,5 @@ class GameTest(unittest.TestCase):
             Error.EMPTY_PILE
         )
 
-    def _areFoundationsInitialState(self, foundations):
-        for _, foundation in foundations.items():
-            if not foundation.empty():
-                return False
-        return True
-
-    def _arePilesInitialState(self, piles):
-        for pile in piles:
-            if pile.getNumber() != len(pile.getCards()):
-                return False
-            if not pile.peek().isFaceUp():
-                return False
-        return True
-
-    def _isStockInitialState(self, stock):
-        if len(stock.takeTop(24)) != 24:
-            return False
-        return stock.empty
 
 
