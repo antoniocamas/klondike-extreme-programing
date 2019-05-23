@@ -8,7 +8,6 @@ class Card(object):
         self._number = number
         self._faceUp = False
 
-
     def __eq__(self, other):
         if self._suit == other._suit and \
            self._number == other._number and \
@@ -34,7 +33,6 @@ class Card(object):
 
     def isFaceUp(self):
         return self._faceUp
-        
 
     def isNextTo(self, otherCard):
         if self._suit != otherCard._suit:

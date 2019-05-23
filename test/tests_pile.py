@@ -78,7 +78,6 @@ class PileTest(unittest.TestCase):
         returnedCard = pile.getTop(3)[0]
         self.assertTrue(returnedCard.isFaceUp())
 
-        
     def test_GivenEmtpyPile_WhenremoveTop_thePileStillEmpyt(self):
         pile = PileBuilder().build()
         pile.removeTop(1)

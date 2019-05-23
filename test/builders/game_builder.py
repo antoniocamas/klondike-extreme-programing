@@ -24,13 +24,11 @@ class GameBuilder(object):
         self._waste = None
         self._stock = None
 
-
     def foundationEmpty(self, suit=Suit.PIKES):
         self._foundations[suit] = FoundationBuilder().build()
         return self
     
     def foundationComplete(self, suit=Suit.PIKES):
-        
         self._foundations[suit] = FoundationBuilder().suit(suit).cards(13).build()
         return self
 
