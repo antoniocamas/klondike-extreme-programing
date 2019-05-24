@@ -20,6 +20,11 @@ class FoundationTest(unittest.TestCase):
         card = CardBuilder().suit(Suit.PIKES).number(Number.ACE).faceUp().build()
         self.assertTrue(foundation.fitsIn(card))
         
+    def test_GivenAemptyFoundation_whenAceoFaceDownAsksFitsIn_ReturnFalse(self):
+        foundation = FoundationBuilder().suit(Suit.PIKES).build()
+        card = CardBuilder().suit(Suit.PIKES).number(Number.ACE).build()
+        self.assertFalse(foundation.fitsIn(card))
+        
     def test_GivenAemptyFoundation_whenAceofOtherSuitAsksFitsIn_ReturnFalse(self):
         foundation = FoundationBuilder().suit(Suit.CLOVERS).build()
         card = CardBuilder().suit(Suit.PIKES).number(Number.ACE).build()
