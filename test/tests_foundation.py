@@ -1,4 +1,5 @@
 import unittest
+from tfd.exception import InvalidCard
 from builders.foundation_builder import FoundationBuilder
 from builders.card_builder import CardBuilder
 from tfd.foundation import Foundation
@@ -14,6 +15,12 @@ class FoundationTest(unittest.TestCase):
     def test_GivenAnotCompletePile_whenIsCompleteAsked_ReturnFalse(self):
         foundation = FoundationBuilder().cards(1).build()
         self.assertFalse(foundation.isComplete())
+
+    def test_GivenAemptyFoundation_whenAceFaceDownPush_ThenException(self):
+        foundation = FoundationBuilder().suit(Suit.PIKES).build()
+        card = CardBuilder().suit(Suit.PIKES).number(Number.ACE).build()
+        with self.assertRaises(InvalidCard) as context:
+            foundation.push(card)
 
     def test_GivenAemptyFoundation_whenAceofSuitAsksFitsIn_ReturnTrue(self):
         foundation = FoundationBuilder().suit(Suit.PIKES).build()

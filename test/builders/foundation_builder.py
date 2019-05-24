@@ -2,6 +2,7 @@ from tfd.card import Card
 from tfd.suit import Suit
 from tfd.number import Number
 from tfd.foundation import Foundation
+from builders.card_builder import CardBuilder
 
 class FoundationBuilder(object):
 
@@ -19,9 +20,8 @@ class FoundationBuilder(object):
     
     def cards(self, numberOfCards):
         for number in Number:
-            card = Card(self._suit, number)
-            card.flip()
-            self._cards.append(card)
+            card = CardBuilder().suit(self._suit).number(number).faceUp().build()
+            self.card(card)
             if len(self._cards) == numberOfCards:
                 return self
         return self
