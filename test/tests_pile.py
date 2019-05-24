@@ -1,4 +1,5 @@
 import unittest
+from tfd.exception import InvalidCard
 from tfd.card import Card
 from tfd.suit import Suit
 from tfd.number import Number
@@ -41,9 +42,9 @@ class PileTest(unittest.TestCase):
         self.assertEqual(returnedCards, [card, otherCard, topCard])
         
     def test_GivenAEmtpyPile_WhenaddToTop_CardsAreAdded(self):
-        card = CardBuilder().build()
-        otherCard = CardBuilder().suit(Suit.HEARTS).build()
-        topCard = CardBuilder().suit(Suit.DIAMONDS).build()
+        card = CardBuilder().faceUp().build()
+        otherCard = CardBuilder().suit(Suit.HEARTS).faceUp().build()
+        topCard = CardBuilder().suit(Suit.DIAMONDS).faceUp().build()
         cards = [card, otherCard, topCard]
         pile = PileBuilder().build()
         pile.addToTop(cards)
@@ -51,15 +52,24 @@ class PileTest(unittest.TestCase):
         self.assertEqual(pile.getTop(3), [card, otherCard, topCard])
         
     def test_GivenNotEmtpyPile_WhenaddToTop_CardsAreAdded(self):
-        card = CardBuilder().build()
-        otherCard = CardBuilder().suit(Suit.HEARTS).build()
-        topCard = CardBuilder().suit(Suit.DIAMONDS).build()
+        card = CardBuilder().faceUp().build()
+        otherCard = CardBuilder().suit(Suit.HEARTS).faceUp().build()
+        topCard = CardBuilder().suit(Suit.DIAMONDS).faceUp().build()
         cards = [otherCard, topCard]
         pile = PileBuilder().card(card).build()
         pile.addToTop(cards)
         self.assertEqual(pile.getTop(3), [card, otherCard, topCard])
 
-    def test_GivenNotEmtpyPile_WhenremoveTop_CardsAreRemoved(self):
+    def test_GivenPile_WhenaddToTopFaceDown_ThenException(self):
+        card = CardBuilder().faceUp().build()
+        otherCard = CardBuilder().suit(Suit.HEARTS).build()
+        topCard = CardBuilder().suit(Suit.DIAMONDS).faceUp().build()
+        cards = [otherCard, topCard]
+        pile = PileBuilder().card(card).build()
+        with self.assertRaises(InvalidCard) as context:
+            pile.addToTop(cards)
+        
+    def test_GivenNotEmtpy_WhenremoveTop_CardsAreRemoved(self):
         card = CardBuilder().build()
         otherCard = CardBuilder().suit(Suit.HEARTS).build()
         topCard = CardBuilder().suit(Suit.DIAMONDS).build()

@@ -1,3 +1,4 @@
+from tfd import exception
 from tfd.cardstack import CardStack
 from tfd.number import Number
 
@@ -34,6 +35,8 @@ class Pile(CardStack):
 
     def addToTop(self, cards):
         for card in cards:
+            if not card.isFaceUp():
+                raise exception.InvalidCard(str(card))
             self.push(card)
             
     def removeTop(self, numberOfCards):
