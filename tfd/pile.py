@@ -51,6 +51,9 @@ class Pile(CardStack):
 
 
     def fitsIn(self, card):
+        if not card.isFaceUp():
+            return False
+        
         if self.empty():
             if card.getNumber() == Number.KING:
                 return True

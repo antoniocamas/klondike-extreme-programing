@@ -99,6 +99,12 @@ class PileTest(unittest.TestCase):
         pile = PileBuilder().card(cardInPile).build()
         self.assertTrue(pile.fitsIn(cardCandidate))
         
+    def test_GivenAPileWithCards_WhenACardFaceDownAskIfFits_ReturnFalse(self):
+        cardCandidate = CardBuilder().suit(Suit.DIAMONDS).number(Number.QUEEN).build()
+        cardInPile = CardBuilder().suit(Suit.CLOVERS).number(Number.KING).faceUp().build()
+        pile = PileBuilder().card(cardInPile).build()
+        self.assertFalse(pile.fitsIn(cardCandidate))
+        
     def test_GivenAPileWithAColor_WhenSameColorAskIfFits_ReturnFalse(self):
         cardCandidate = CardBuilder().suit(Suit.HEARTS).number(Number.QUEEN).faceUp().build()
         cardInPile = CardBuilder().suit(Suit.DIAMONDS).number(Number.KING).faceUp().build()
