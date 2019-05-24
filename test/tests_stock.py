@@ -1,5 +1,7 @@
 import unittest
+from tfd.exception import InvalidCard
 from builders.stock_builder import StockBuilder
+from builders.card_builder import CardBuilder
 
 class StockTest(unittest.TestCase):
 
@@ -13,3 +15,8 @@ class StockTest(unittest.TestCase):
     def test_GivenAStock_whentakeTopwithMoreThanstockSize_ThenReturnLesscards(self):
         stock = StockBuilder().build()
         self.assertEqual(stock.takeTop(3), [])
+
+    def test_GivenAStock_whenPushFaceUp_ThenException(self):
+        waste = StockBuilder().build()
+        with self.assertRaises(InvalidCard) as context:
+            waste.push(CardBuilder().faceUp().build())
