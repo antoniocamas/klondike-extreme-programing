@@ -1,3 +1,4 @@
+from tfd import exception
 from tfd.cardstack import CardStack
 
 class Waste(CardStack):
@@ -6,6 +7,8 @@ class Waste(CardStack):
         super(Waste, self).__init__(cards)
 
     def push(self, card):
-        if card.isFaceUp():
-            super(Waste, self).push(card)
+        if not card.isFaceUp():
+            raise exception.InvalidCard(str(card))
+        
+        super(Waste, self).push(card)
         

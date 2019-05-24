@@ -1,0 +1,2 @@
+class InvalidCard(Exception):
+    pass
