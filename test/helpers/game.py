@@ -24,6 +24,6 @@ class GameHelper(object):
 
     def isStockInitialState(self):
         stock = self._game.getStock()
-        if len(stock.takeTop(24)) != 24:
+        if len(stock.getTopCards(24)) != 24:
             return False
         return stock.empty

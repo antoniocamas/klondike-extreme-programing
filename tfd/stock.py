@@ -14,7 +14,7 @@ class Stock(CardStack):
         
         super(Stock, self).push(card)
         
-    def takeTop(self, numberOfCards):
+    def getTopCards(self, numberOfCards):
         retCards = list()
         for _ in range(numberOfCards):
             if not self.empty():
