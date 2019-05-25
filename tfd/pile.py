@@ -8,9 +8,6 @@ class Pile(object):
         self._number = number
         self.flipFirstCard()
 
-    # def pop(self):
-    #     return self._cards.pop()
-
     def empty(self):
         return not self._cards
     
@@ -30,21 +27,12 @@ class Pile(object):
     
     def getTop(self, numberOfCards=None):
         if not numberOfCards:
-            return self._getLastCard()
+            return self._getLastCards(1)[0]
 
         return self._getLastCards(numberOfCards)
     
-    def _getLastCard(self):
-        return self._cards[-1]
-    
     def _getLastCards(self, numberOfCards):
-        retCards = list()
-        for count, card in enumerate(reversed(self.getCards())):
-            if count == numberOfCards:
-                return retCards
-            retCards.insert(0, card)
-
-        return retCards
+        return self._cards[-numberOfCards:]
 
     def addToTop(self, cards):
         if type(cards) != list:
