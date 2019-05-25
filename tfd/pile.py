@@ -27,14 +27,6 @@ class Pile(object):
                 numberOfFaceUpCards = numberOfFaceUpCards + 1
             
         return numberOfFaceUpCards
-        
-        retCards = list()
-        for count, card in enumerate(reversed(self.getCards())):
-            if count == numberOfCards:
-                return retCards
-            retCards.insert(0, card)
-
-        return retCards
     
     def getTop(self, numberOfCards=None):
         if not numberOfCards:
