@@ -17,7 +17,7 @@ class Pile(CardStack):
 
     def numberOfFaceUpCards(self):
         numberOfFaceUpCards = 0
-        for card in self._cards:
+        for card in self.getCards():
             if card.isFaceUp():
                 numberOfFaceUpCards = numberOfFaceUpCards + 1
             
@@ -25,7 +25,7 @@ class Pile(CardStack):
                 
     def getTop(self, numberOfCards):
         retCards = list()
-        for count, card in enumerate(reversed(self._cards)):
+        for count, card in enumerate(reversed(self.getCards())):
             if count == numberOfCards:
                 return retCards
             retCards.insert(0, card)
@@ -43,7 +43,7 @@ class Pile(CardStack):
             return
         
         for count in range(numberOfCards):
-            if self._cards:
+            if not self.empty():
                 self.pop()
 
     def isFittingIn(self, card):
@@ -66,8 +66,8 @@ class Pile(CardStack):
         return False
 
     def flipFirstCard(self):
-        if not self._cards:
+        if self.empty():
             return
         
-        if not self._cards[-1].isFaceUp():
-            self._cards[-1].flip()
+        if not self.peek().isFaceUp():
+            self.peek().flip()
