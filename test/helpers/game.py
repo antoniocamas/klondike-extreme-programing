@@ -18,7 +18,7 @@ class GameHelper(object):
         for pile in piles:
             if pile.getNumber() != len(pile.getCards()):
                 return False
-            if not pile.peek().isFaceUp():
+            if not pile.getTop().isFaceUp():
                 return False
         return True
 

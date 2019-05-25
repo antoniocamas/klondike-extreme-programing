@@ -14,9 +14,6 @@ class Pile(object):
     def pop(self):
         return self._cards.pop()
 
-    def peek(self):
-        return self.getTop()
-
     def empty(self):
         return not self._cards
     
@@ -84,11 +81,11 @@ class Pile(object):
             else:
                 return False
         
-        if not self.peek().isFaceUp():
+        if not self.getTop().isFaceUp():
             return False
         
-        if (not self.peek().isSameColor(card)) and \
-           self.peek().isNextTo(card):
+        if (not self.getTop().isSameColor(card)) and \
+           self.getTop().isNextTo(card):
             return True
         
         return False
@@ -97,5 +94,5 @@ class Pile(object):
         if self.empty():
             return
         
-        if not self.peek().isFaceUp():
-            self.peek().flip()
+        if not self.getTop().isFaceUp():
+            self.getTop().flip()

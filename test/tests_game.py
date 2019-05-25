@@ -74,7 +74,7 @@ class GameTest(unittest.TestCase):
         game = GameBuilder().cardInWaste(cardToMove).cardInPile(pileNumber, cardInPile).build()
         self.assertIsNone(game.moveFromWasteToPile(pileNumber))
         self.assertTrue(game.getWaste().empty())
-        self.assertEqual(game.getPiles()[pileNumber-1].peek(), cardToMove)
+        self.assertEqual(game.getPiles()[pileNumber-1].getTop(), cardToMove)
 
     def test_GivenAGame_WhenMoveFromWasteToPileThatDontFit_ThenError(self):        
         pileNumber = 1
@@ -96,7 +96,7 @@ class GameTest(unittest.TestCase):
                .cardInPile(pileNumber, cardToMove)\
                .build()
         self.assertIsNone(game.moveFromPileToFoundation(pileNumber, Suit.PIKES))
-        self.assertNotEqual(game.getPiles()[pileNumber-1].peek(), cardToMove)
+        self.assertNotEqual(game.getPiles()[pileNumber-1].getTop(), cardToMove)
         self.assertEqual(game.getFoundations()[Suit.PIKES].peek(), cardToMove)
                 
     def test_GivenAGameWithEmptyPile_WhenMoveFromPileToFoundation_ThenError(self):
@@ -120,7 +120,7 @@ class GameTest(unittest.TestCase):
         cardLeft = CardBuilder().suit(Suit.PIKES).number(Number.QUEEN).faceUp().build()
         game = GameBuilder().pileEmpty(pileNumber).foundationComplete(Suit.PIKES).build()
         self.assertIsNone(game.moveFromFoundationToPile(Suit.PIKES, pileNumber))
-        self.assertEqual(game.getPiles()[pileNumber-1].peek(), cardToMove)
+        self.assertEqual(game.getPiles()[pileNumber-1].getTop(), cardToMove)
         self.assertEqual(game.getFoundations()[Suit.PIKES].peek(), cardLeft)
 
     def test_GivenAEmptyFoundation_WhenMoveFromFoundationToPile_ThenError(self):

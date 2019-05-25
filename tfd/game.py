@@ -112,7 +112,7 @@ class Game(object):
         if self._piles[numberOfPile-1].empty():
             return Error.EMPTY_PILE
 
-        if not self._foundations[suit].isFittingIn(self._piles[numberOfPile-1].peek()):
+        if not self._foundations[suit].isFittingIn(self._piles[numberOfPile-1].getTop()):
             return Error.NO_FIT_FOUNDATION
 
         self._foundations[suit].push(self._piles[numberOfPile-1].pop())
