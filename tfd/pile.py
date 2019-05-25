@@ -56,15 +56,13 @@ class Pile(CardStack):
             else:
                 return False
         
-        topCard = self.peek()
-        
-        if not topCard.isFaceUp():
+        if not self.peek().isFaceUp():
             return False
 
-        if topCard.getColor() == card.getColor():
+        if self.peek().getColor() == card.getColor():
             return False
         
-        if topCard.getNumber().getValue() - 1 == card.getNumber().getValue():
+        if self.peek().getNumber().getValue() - 1 == card.getNumber().getValue():
             return True
         
         return False
