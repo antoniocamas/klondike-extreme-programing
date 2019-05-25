@@ -14,7 +14,7 @@ class Waste(object):
     def pop(self):
         return self._cards.pop()
 
-    def peek(self):
+    def getTop(self):
         return self._cards[-1]
 
     def empty(self):

@@ -39,7 +39,7 @@ class GameTest(unittest.TestCase):
 
     def test_GivenAGame_WhenmoveFromWasteToFoundationAndFits_ThenTheCardisMoved(self):
         game = GameBuilder().wasteWithAce(Suit.PIKES).build()
-        cardTobeMoved = game.getWaste().peek()
+        cardTobeMoved = game.getWaste().getTop()
         self.assertIsNone(game.moveFromWasteToFoundation(Suit.PIKES))
         self.assertEqual(game.getFoundations()[Suit.PIKES].peek(), cardTobeMoved)
 
