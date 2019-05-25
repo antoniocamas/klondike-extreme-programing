@@ -14,7 +14,7 @@ class Pile(object):
     def getNumber(self):
         return self._number
 
-    def numberOfFaceUpCards(self):
+    def getNumberOfFaceUpCards(self):
         numberOfFaceUpCards = 0
         for card in self._cards:
             if card.isFaceUp():

@@ -18,11 +18,11 @@ class PileTest(unittest.TestCase):
 
     def test_GivenAPileWithCardsFaceUp_WhenNumberOfFaceUpCards_ReturnTheRightNumber(self):
         card = CardBuilder().faceUp().build()
-        self.assertEqual(PileBuilder().card(card).build().numberOfFaceUpCards(), 1)
+        self.assertEqual(PileBuilder().card(card).build().getNumberOfFaceUpCards(), 1)
 
     def test_GivenAPileWithoutCards_WhenNumberOfFaceUpCards_ReturnZero(self):
         card = CardBuilder().faceUp().build()
-        self.assertEqual(PileBuilder().build().numberOfFaceUpCards(), 0)
+        self.assertEqual(PileBuilder().build().getNumberOfFaceUpCards(), 0)
 
     def test_GivenAPileWithoutCArds_WhengetTop_ThenEmptyListIsreturned(self):
         self.assertEqual(PileBuilder().build().getTop(1), [])

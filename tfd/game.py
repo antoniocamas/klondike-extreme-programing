@@ -133,7 +133,7 @@ class Game(object):
         if self._piles[pileNumberOrigin-1].isEmpty():
             return Error.EMPTY_PILE
 
-        if self._piles[pileNumberOrigin-1].numberOfFaceUpCards() < numberOfCardsToMove:
+        if self._piles[pileNumberOrigin-1].getNumberOfFaceUpCards() < numberOfCardsToMove:
             return Error.NO_ENOUGH_CARDS_PILE
 
         cardsToMove = self._piles[pileNumberOrigin-1].getTop(numberOfCardsToMove)
