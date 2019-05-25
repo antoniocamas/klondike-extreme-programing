@@ -51,7 +51,7 @@ class Pile(CardStack):
             return False
         
         if self.empty():
-            if card.getNumber() == Number.KING:
+            if card.isSameNumber(Number.KING):
                 return True
             else:
                 return False
