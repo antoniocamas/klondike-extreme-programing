@@ -16,11 +16,11 @@ class FoundationTest(unittest.TestCase):
         foundation = FoundationBuilder().cards(1).build()
         self.assertFalse(foundation.isComplete())
 
-    def test_GivenAemptyFoundation_whenAceFaceDownPush_ThenException(self):
+    def test_GivenAemptyFoundation_whenAceFaceDownaddToTop_ThenException(self):
         foundation = FoundationBuilder().suit(Suit.PIKES).build()
         card = CardBuilder().suit(Suit.PIKES).number(Number.ACE).build()
         with self.assertRaises(InvalidCard) as context:
-            foundation.push(card)
+            foundation.addToTop(card)
 
     def test_GivenAemptyFoundation_whenAceofSuitAsksFitsIn_ReturnTrue(self):
         foundation = FoundationBuilder().suit(Suit.PIKES).build()

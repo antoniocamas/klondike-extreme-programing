@@ -10,7 +10,7 @@ class Foundation(object):
         self._cards = list()
         self._suit = suit
 
-    def push(self, card):
+    def addToTop(self, card):
         if not card.isFaceUp():
             raise exception.InvalidCard(str(card))
         self._cards.append(card)

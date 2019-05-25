@@ -29,7 +29,7 @@ class FoundationBuilder(object):
     def build(self):
         foundation = Foundation(self._suit)
         for card in self._cards:
-            foundation.push(card)
+            foundation.addToTop(card)
 
         return foundation
     
