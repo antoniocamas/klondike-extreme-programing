@@ -31,7 +31,6 @@ class Game(object):
             cardsForPile = list()
             for _ in range(index):
                 cardsForPile.append(cards.pop())
-#            cardsForPile[-1].flip()
             self._piles.append(Pile(index, cardsForPile))
 
         self._waste = Waste(list())
@@ -96,7 +95,7 @@ class Game(object):
         if self._waste.empty():
             return Error.EMPTY_WASTE
 
-        if not self._piles[numberOfPile-1].fitsIn(self._waste.peek()):
+        if not self._piles[numberOfPile-1].isFittingIn(self._waste.peek()):
             return Error.NO_FIT_PILE
 
         self._piles[numberOfPile-1].push(self._waste.pop())
@@ -105,7 +104,7 @@ class Game(object):
         if self._foundations[suit].empty():
             return Error.EMPTY_FOUNDATION
 
-        if not self._piles[numberOfPile-1].fitsIn(self._foundations[suit].peek()):
+        if not self._piles[numberOfPile-1].isFittingIn(self._foundations[suit].peek()):
             return Error.NO_FIT_PILE
 
         self._piles[numberOfPile-1].push(self._foundations[suit].pop())
@@ -133,7 +132,7 @@ class Game(object):
             return Error.NO_ENOUGH_CARDS_PILE
 
         cardsToMove = self._piles[pileNumberOrigin-1].getTop(numberOfCardsToMove)
-        if not self._piles[pileNumberDest-1].fitsIn(cardsToMove[0]):
+        if not self._piles[pileNumberDest-1].isFittingIn(cardsToMove[0]):
             return Error.NO_FIT_PILE
 
         self._piles[pileNumberOrigin-1].removeTop(numberOfCardsToMove)

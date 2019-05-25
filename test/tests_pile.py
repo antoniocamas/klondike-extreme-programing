@@ -97,26 +97,26 @@ class PileTest(unittest.TestCase):
         cardCandidate = CardBuilder().suit(Suit.DIAMONDS).number(Number.QUEEN).faceUp().build()
         cardInPile = CardBuilder().suit(Suit.CLOVERS).number(Number.KING).faceUp().build()
         pile = PileBuilder().card(cardInPile).build()
-        self.assertTrue(pile.fitsIn(cardCandidate))
+        self.assertTrue(pile.isFittingIn(cardCandidate))
         
     def test_GivenAPileWithCards_WhenACardFaceDownAskIfFits_ReturnFalse(self):
         cardCandidate = CardBuilder().suit(Suit.DIAMONDS).number(Number.QUEEN).build()
         cardInPile = CardBuilder().suit(Suit.CLOVERS).number(Number.KING).faceUp().build()
         pile = PileBuilder().card(cardInPile).build()
-        self.assertFalse(pile.fitsIn(cardCandidate))
+        self.assertFalse(pile.isFittingIn(cardCandidate))
         
     def test_GivenAPileWithAColor_WhenSameColorAskIfFits_ReturnFalse(self):
         cardCandidate = CardBuilder().suit(Suit.HEARTS).number(Number.QUEEN).faceUp().build()
         cardInPile = CardBuilder().suit(Suit.DIAMONDS).number(Number.KING).faceUp().build()
         pile = PileBuilder().card(cardInPile).build()
-        self.assertFalse(pile.fitsIn(cardCandidate))
+        self.assertFalse(pile.isFittingIn(cardCandidate))
 
     def test_GivenAEmptyPile_WhenKingAskIfFits_ReturnTrue(self):
         cardCK = CardBuilder().number(Number.KING).faceUp().build()
         pile = PileBuilder().build()
-        self.assertTrue(pile.fitsIn(cardCK))
+        self.assertTrue(pile.isFittingIn(cardCK))
 
     def test_GivenAEmptyPile_WhenNotKingAskIfFits_ReturnFalse(self):
         cardCK = CardBuilder().number(Number.QUEEN).faceUp().build()
         pile = PileBuilder().build()
-        self.assertFalse(pile.fitsIn(cardCK))
+        self.assertFalse(pile.isFittingIn(cardCK))
