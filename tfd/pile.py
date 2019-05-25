@@ -15,7 +15,7 @@ class Pile(object):
         return self._cards.pop()
 
     def peek(self):
-        return self._cards[-1]
+        return self.getTop()
 
     def empty(self):
         return not self._cards
@@ -33,8 +33,25 @@ class Pile(object):
                 numberOfFaceUpCards = numberOfFaceUpCards + 1
             
         return numberOfFaceUpCards
-                
-    def getTop(self, numberOfCards):
+        
+        retCards = list()
+        for count, card in enumerate(reversed(self.getCards())):
+            if count == numberOfCards:
+                return retCards
+            retCards.insert(0, card)
+
+        return retCards
+    
+    def getTop(self, numberOfCards=None):
+        if not numberOfCards:
+            return self._getLastCard()
+
+        return self._getLastCards(numberOfCards)
+    
+    def _getLastCard(self):
+        return self._cards[-1]
+    
+    def _getLastCards(self, numberOfCards):
         retCards = list()
         for count, card in enumerate(reversed(self.getCards())):
             if count == numberOfCards:
