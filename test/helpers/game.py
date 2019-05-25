@@ -16,7 +16,7 @@ class GameHelper(object):
     def arePilesInitialState(self):
         piles = self._game.getPiles()
         for pile in piles:
-            if pile.getNumber() != len(pile.getCards()):
+            if pile.getNumber() != len(pile.getTop(52)):
                 return False
             if not pile.getTop().isFaceUp():
                 return False

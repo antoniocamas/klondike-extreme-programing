@@ -14,9 +14,6 @@ class Foundation(object):
         if not card.isFaceUp():
             raise exception.InvalidCard(str(card))
         self._cards.append(card)
-        
-    # def pop(self):
-    #     return self._cards.pop()
 
     def getTop(self):
         return self._cards[-1]
