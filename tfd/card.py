@@ -35,9 +35,6 @@ class Card(object):
         return self._faceUp
 
     def isNextTo(self, otherCard):
-        if self._suit != otherCard._suit:
-            return False
-
         if otherCard._number.getValue() +1 == self._number.getValue():
             return True
 
