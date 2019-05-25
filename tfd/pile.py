@@ -7,7 +7,7 @@ class Pile(CardStack):
     def __init__(self, number, cards):
         super(Pile, self).__init__(cards)
         self._number = number
-        self._numberOfFaceUpCards = None
+#        self._numberOfFaceUpCards = None
         self._flipFirstCard()
 
     def getNumber(self):
@@ -17,12 +17,12 @@ class Pile(CardStack):
         return self._cards
 
     def numberOfFaceUpCards(self):
-        self._numberOfFaceUpCards = 0
+        numberOfFaceUpCards = 0
         for card in self._cards:
             if card.isFaceUp():
-                self._numberOfFaceUpCards = self._numberOfFaceUpCards + 1
+                numberOfFaceUpCards = numberOfFaceUpCards + 1
             
-        return self._numberOfFaceUpCards
+        return numberOfFaceUpCards
                 
     def getTop(self, numberOfCards):
         retCards = list()
