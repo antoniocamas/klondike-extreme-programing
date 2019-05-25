@@ -21,4 +21,7 @@ class Stock(CardStack):
                 retCards.append(self.pop())
         return retCards
 
-    
+    def removeTopCards(self, numberOfCards):
+        for _ in range(numberOfCards):
+            if not self.empty():
+                self.pop()
