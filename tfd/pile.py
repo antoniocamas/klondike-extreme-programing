@@ -7,8 +7,7 @@ class Pile(CardStack):
     def __init__(self, number, cards):
         super(Pile, self).__init__(cards)
         self._number = number
-#        self._numberOfFaceUpCards = None
-        self._flipFirstCard()
+        self.flipFirstCard()
 
     def getNumber(self):
         return self._number
@@ -47,7 +46,7 @@ class Pile(CardStack):
             if self._cards:
                 self.pop()
 
-        self._flipFirstCard()
+        self.flipFirstCard()
 
 
     def fitsIn(self, card):
@@ -73,7 +72,7 @@ class Pile(CardStack):
         
         return False
 
-    def _flipFirstCard(self):
+    def flipFirstCard(self):
         if not self._cards:
             return
         
