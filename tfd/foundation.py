@@ -21,7 +21,7 @@ class Foundation(object):
     def removeTop(self):
         self._cards.pop()
 
-    def empty(self):
+    def isEmpty(self):
         return not self._cards
 
     def getSuit(self):
@@ -34,7 +34,7 @@ class Foundation(object):
         if (not card.isFaceUp()) or (not card.isSameSuit(self._suit)):
             return False
 
-        if self.empty():
+        if self.isEmpty():
            if card.isSameNumber(Number.ACE):
                return True
            else:

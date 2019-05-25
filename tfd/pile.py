@@ -8,7 +8,7 @@ class Pile(object):
         self._number = number
         self.turneUpFirstCardIfNeeded()
 
-    def empty(self):
+    def isEmpty(self):
         return not self._cards
 
     def getNumber(self):
@@ -42,14 +42,14 @@ class Pile(object):
 
     def removeTop(self, numberOfCards=1):
         for count in range(numberOfCards):
-            if not self.empty():
+            if not self.isEmpty():
                 self._cards.pop()
 
     def isFittingIn(self, card):
         if not card.isFaceUp():
             return False
 
-        if self.empty():
+        if self.isEmpty():
             if card.isSameNumber(Number.KING):
                 return True
             else:
@@ -65,7 +65,7 @@ class Pile(object):
         return False
 
     def turneUpFirstCardIfNeeded(self):
-        if self.empty():
+        if self.isEmpty():
             return
 
         if not self.getTop().isFaceUp():

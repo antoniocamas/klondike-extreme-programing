@@ -9,7 +9,7 @@ class CardStackHelper(object):
     def fromCardStack(cls, cardstack):
         cardstack = copy.deepcopy(cardstack)
         cards = list()
-        while not cardstack.empty():
+        while not cardstack.isEmpty():
             cards.append(cardstack.getTop())
             cardstack.removeTop()
 

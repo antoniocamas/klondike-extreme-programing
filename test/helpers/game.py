@@ -7,12 +7,12 @@ class GameHelper(object):
         self._game = game
 
     def isWasteInInitialState(self):
-        return self._game.getWaste().empty()
+        return self._game.getWaste().isEmpty()
         
     def areFoundationsInitialState(self):
         foundations = self._game.getFoundations()
         for _, foundation in foundations.items():
-            if not foundation.empty():
+            if not foundation.isEmpty():
                 return False
         return True
 
@@ -29,4 +29,4 @@ class GameHelper(object):
         stock = self._game.getStock()
         if len(stock.getTop(24)) != self.INITIAL_CARDS_IN_STOCK:
             return False
-        return stock.empty
+        return stock.isEmpty

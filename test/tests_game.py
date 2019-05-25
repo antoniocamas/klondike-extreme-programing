@@ -57,7 +57,7 @@ class GameTest(unittest.TestCase):
         self.assertIsNone(game.moveFromWasteToStock())
         self.assertListEqual(
             CardStackHelper.fromCardStack(game.getStock()).getCards(), expected_cards)
-        self.assertTrue(game.getWaste().empty())
+        self.assertTrue(game.getWaste().isEmpty())
         
     def test_GivenAGameWithNotEmptyStock_whenmoveFromWasteToStock_ThenError(self):
         game = GameBuilder().wasteNotEmpty().build()
@@ -73,7 +73,7 @@ class GameTest(unittest.TestCase):
         cardInPile = CardBuilder().suit(Suit.HEARTS).number(Number.TWO).faceUp().build()
         game = GameBuilder().cardInWaste(cardToMove).cardInPile(pileNumber, cardInPile).build()
         self.assertIsNone(game.moveFromWasteToPile(pileNumber))
-        self.assertTrue(game.getWaste().empty())
+        self.assertTrue(game.getWaste().isEmpty())
         self.assertEqual(game.getPiles()[pileNumber-1].getTop(), cardToMove)
 
     def test_GivenAGame_WhenMoveFromWasteToPileThatDontFit_ThenError(self):        

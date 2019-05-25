@@ -13,7 +13,7 @@ class Stock(object):
 
         self._cards.append(card)
 
-    def empty(self):
+    def isEmpty(self):
         return not self._cards
 
     def getTop(self, numberOfCards=None):
@@ -27,5 +27,5 @@ class Stock(object):
 
     def removeTop(self, numberOfCards=1):
         for _ in range(numberOfCards):
-            if not self.empty():
+            if not self.isEmpty():
                 self._cards.pop()

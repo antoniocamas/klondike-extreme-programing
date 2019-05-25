@@ -58,7 +58,7 @@ class Game(object):
         self.__init__()
 
     def moveFromStockToWaste(self):
-        if self._stock.empty:
+        if self._stock.isEmpty:
             return Error.EMPTY_STOCK
 
         cards = self._stock.takeTop(1)
@@ -67,7 +67,7 @@ class Game(object):
             self._waste.push(card)
 
     def moveFromWasteToFoundation(self, suit):
-        if self._waste.empty():
+        if self._waste.isEmpty():
             return Error.EMPTY_WASTE
 
         if not self._foundations[suit].isFittingIn(self._waste.getTop()):
@@ -77,14 +77,14 @@ class Game(object):
         self._waste.removeTop()
 
     def moveFromWasteToStock(self):
-        if self._waste.empty():
+        if self._waste.isEmpty():
             return Error.EMPTY_WASTE
 
-        if not self._stock.empty():
+        if not self._stock.isEmpty():
             return Error.NO_EMPTY_STOCK
 
         cards = list()
-        while not self._waste.empty():
+        while not self._waste.isEmpty():
             card = self._waste.getTop()
             self._waste.removeTop()
             card.flip()
@@ -93,7 +93,7 @@ class Game(object):
         self._stock = Stock(cards)
 
     def moveFromWasteToPile(self, numberOfPile):
-        if self._waste.empty():
+        if self._waste.isEmpty():
             return Error.EMPTY_WASTE
 
         if not self._piles[numberOfPile-1].isFittingIn(self._waste.getTop()):
@@ -103,7 +103,7 @@ class Game(object):
         self._waste.removeTop()
 
     def moveFromFoundationToPile(self, suit, numberOfPile):
-        if self._foundations[suit].empty():
+        if self._foundations[suit].isEmpty():
             return Error.EMPTY_FOUNDATION
 
         if not self._piles[numberOfPile-1].isFittingIn(self._foundations[suit].getTop()):
@@ -113,7 +113,7 @@ class Game(object):
         self._foundations[suit].removeTop()
 
     def moveFromPileToFoundation(self, numberOfPile, suit):
-        if self._piles[numberOfPile-1].empty():
+        if self._piles[numberOfPile-1].isEmpty():
             return Error.EMPTY_PILE
 
         if not self._foundations[suit].isFittingIn(self._piles[numberOfPile-1].getTop()):
@@ -130,7 +130,7 @@ class Game(object):
         if pileNumberDest == pileNumberOrigin:
             return Error.SAME_PILE
 
-        if self._piles[pileNumberOrigin-1].empty():
+        if self._piles[pileNumberOrigin-1].isEmpty():
             return Error.EMPTY_PILE
 
         if self._piles[pileNumberOrigin-1].numberOfFaceUpCards() < numberOfCardsToMove:

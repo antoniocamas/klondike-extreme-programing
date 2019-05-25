@@ -17,5 +17,5 @@ class Waste(object):
     def removeTop(self):
         self._cards.pop()
 
-    def empty(self):
+    def isEmpty(self):
         return not self._cards

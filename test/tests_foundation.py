@@ -64,4 +64,4 @@ class FoundationTest(unittest.TestCase):
         
     def test_GivenemptyFoundation_whenAskEmpty_ReturnTrue(self):
         foundation = FoundationBuilder().build()
-        self.assertTrue(foundation.empty())
+        self.assertTrue(foundation.isEmpty())

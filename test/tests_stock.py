@@ -32,5 +32,5 @@ class StockTest(unittest.TestCase):
         stock.removeTop()
         self.assertEqual(stock.getTop(1), [originalCards[-3]])
         stock.removeTop(2)
-        self.assertTrue(stock.empty())
+        self.assertTrue(stock.isEmpty())
 

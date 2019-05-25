@@ -10,11 +10,11 @@ from tfd.pile import Pile
 class PileTest(unittest.TestCase):
 
     def test_GivenAndEmptyPile_WhenIsEmptyCalled_ReturnTrue(self):
-        self.assertTrue(PileBuilder().build().empty())
+        self.assertTrue(PileBuilder().build().isEmpty())
         
     def test_GivenAndNotEmptyPile_WhenIsEmptyCalled_ReturnFalse(self):
         card = CardBuilder().build()
-        self.assertFalse(PileBuilder().card(card).build().empty())
+        self.assertFalse(PileBuilder().card(card).build().isEmpty())
 
     def test_GivenAPileWithCardsFaceUp_WhenNumberOfFaceUpCards_ReturnTheRightNumber(self):
         card = CardBuilder().faceUp().build()
@@ -91,7 +91,7 @@ class PileTest(unittest.TestCase):
     def test_GivenEmtpyPile_WhenremoveTop_thePileStillEmpyt(self):
         pile = PileBuilder().build()
         pile.removeTop(1)
-        self.assertTrue(pile.empty())
+        self.assertTrue(pile.isEmpty())
 
     def test_GivenAPileWithCards_WhenACardThatFitsAskIfFits_ReturnTrue(self):
         cardCandidate = CardBuilder().suit(Suit.DIAMONDS).number(Number.QUEEN).faceUp().build()
