@@ -25,7 +25,7 @@ class Stock(object):
     def _getLastCards(self, numberOfCards):
         return [x for x in reversed(self._cards[-numberOfCards:])]
 
-    def removeTop(self, numberOfCards):
+    def removeTop(self, numberOfCards=1):
         for _ in range(numberOfCards):
             if not self.empty():
                 self._cards.pop()

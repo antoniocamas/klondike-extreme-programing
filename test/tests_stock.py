@@ -27,9 +27,9 @@ class StockTest(unittest.TestCase):
     def test_GivenAStock_whenremoveTopCards_ThenXcardsRemoved(self):
         stock = StockBuilder().cards(4).build()
         originalCards = CardStackHelper.fromCardStack(stock).getCards()
-        stock.removeTop(1)
+        stock.removeTop()
         self.assertEqual(stock.getTop(1), [originalCards[-2]])
-        stock.removeTop(1)
+        stock.removeTop()
         self.assertEqual(stock.getTop(1), [originalCards[-3]])
         stock.removeTop(2)
         self.assertTrue(stock.empty())
