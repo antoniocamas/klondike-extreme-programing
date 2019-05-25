@@ -31,5 +31,5 @@ class Foundation(CardStack):
            else:
                return False
 
-        if self.peek().getNumber().getValue() + 1 == card.getNumber().getValue():
+        if card.isNextTo(self.peek()):
             return True
