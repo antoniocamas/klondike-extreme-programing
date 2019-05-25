@@ -73,7 +73,8 @@ class Game(object):
         if not self._foundations[suit].isFittingIn(self._waste.getTop()):
             return Error.NO_FIT_FOUNDATION
 
-        self._foundations[suit].addToTop(self._waste.pop())
+        self._foundations[suit].addToTop(self._waste.getTop())
+        self._waste.removeTop()
 
     def moveFromWasteToStock(self):
         if self._waste.empty():
@@ -84,7 +85,8 @@ class Game(object):
 
         cards = list()
         while not self._waste.empty():
-            card = self._waste.pop()
+            card = self._waste.getTop()
+            self._waste.removeTop()
             card.flip()
             cards.append(card)
             
@@ -97,7 +99,8 @@ class Game(object):
         if not self._piles[numberOfPile-1].isFittingIn(self._waste.getTop()):
             return Error.NO_FIT_PILE
 
-        self._piles[numberOfPile-1].addToTop(self._waste.pop())
+        self._piles[numberOfPile-1].addToTop(self._waste.getTop())
+        self._waste.removeTop()
 
     def moveFromFoundationToPile(self, suit, numberOfPile):
         if self._foundations[suit].empty():

@@ -14,7 +14,7 @@ class CardStackHelper(object):
                 card = cardstack.pop()
             except AttributeError:
                 card = cardstack.getTop()
-                cardstack.removeTop(1)
+                cardstack.removeTop()
             cards.append(card)
 
         cards.reverse()
