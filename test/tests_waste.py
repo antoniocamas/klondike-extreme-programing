@@ -8,4 +8,4 @@ class WasteTest(unittest.TestCase):
     def test_GivenAWaste_whenPushFaceDown_ThenException(self):
         waste = WasteBuilder().build()
         with self.assertRaises(InvalidCard) as context:
-            waste.push(CardBuilder().build())
+            waste.addToTop(CardBuilder().build())

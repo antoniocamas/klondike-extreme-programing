@@ -56,7 +56,7 @@ class GameBuilder(object):
         if not self._waste:
             self._waste = Waste(list())
 
-        self._waste.push(card)
+        self._waste.addToTop(card)
         return self
 
     def wasteNotEmpty(self):

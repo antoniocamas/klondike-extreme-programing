@@ -5,7 +5,7 @@ class Waste(object):
     def __init__(self, cards):
         self._cards = cards
 
-    def push(self, card):
+    def addToTop(self, card):
         if not card.isFaceUp():
             raise exception.InvalidCard(str(card))
         
