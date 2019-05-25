@@ -1,3 +1,4 @@
+import copy
 from tfd import exception
 from tfd.cardstack import CardStack
 from tfd.suit import Suit
@@ -15,10 +16,11 @@ class Stock(CardStack):
         super(Stock, self).push(card)
         
     def getTopCards(self, numberOfCards):
+        originalCards = copy.deepcopy(self._cards)
         retCards = list()
         for _ in range(numberOfCards):
             if not self.empty():
-                retCards.append(self.pop())
+                retCards.append(originalCards.pop())
         return retCards
 
     def removeTopCards(self, numberOfCards):
