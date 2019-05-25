@@ -10,12 +10,8 @@ class CardStackHelper(object):
         cardstack = copy.deepcopy(cardstack)
         cards = list()
         while not cardstack.empty():
-            try:
-                card = cardstack.pop()
-            except AttributeError:
-                card = cardstack.getTop()
-                cardstack.removeTop()
-            cards.append(card)
+            cards.append(cardstack.getTop())
+            cardstack.removeTop()
 
         cards.reverse()
         return cls(cards)

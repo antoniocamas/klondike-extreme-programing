@@ -15,12 +15,15 @@ class Foundation(object):
             raise exception.InvalidCard(str(card))
         self._cards.append(card)
         
-    def pop(self):
-        return self._cards.pop()
+    # def pop(self):
+    #     return self._cards.pop()
 
     def getTop(self):
         return self._cards[-1]
 
+    def removeTop(self):
+        self._cards.pop()
+        
     def empty(self):
         return not self._cards
         
