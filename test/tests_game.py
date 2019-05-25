@@ -98,6 +98,7 @@ class GameTest(unittest.TestCase):
         self.assertIsNone(game.moveFromPileToFoundation(pileNumber, Suit.PIKES))
         self.assertNotEqual(game.getPiles()[pileNumber-1].getTop(), cardToMove)
         self.assertEqual(game.getFoundations()[Suit.PIKES].getTop(), cardToMove)
+        self.assertTrue(game.getPiles()[pileNumber-1].getTop().isFaceUp())        
                 
     def test_GivenAGameWithEmptyPile_WhenMoveFromPileToFoundation_ThenError(self):
         pileNumber = 1
@@ -136,7 +137,7 @@ class GameTest(unittest.TestCase):
         game.moveFromFoundationToPile(Suit.PIKES, pileNumber)
         self.assertEqual(game.moveFromFoundationToPile(Suit.PIKES, pileNumber), Error.NO_FIT_PILE)
 
-    def test_GivenAMoveThatFits_WhenMoveFromPileToPile_ThenCardsMove2(self):
+    def test_GivenAMoveThatFits_WhenMoveFromPileToPile_ThenCardsMove(self):
         pileNumberOrigin = 1
         pileNumberDest = 7
         nCardsMoved = 4

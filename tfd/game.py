@@ -121,6 +121,7 @@ class Game(object):
 
         self._foundations[suit].addToTop(self._piles[numberOfPile-1].getTop())
         self._piles[numberOfPile-1].removeTop()
+        self._piles[numberOfPile-1].turneUpFirstCardIfNeeded()
 
     def moveFromPileToPile(self,
                            pileNumberOrigin,
