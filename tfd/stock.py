@@ -15,7 +15,7 @@ class Stock(CardStack):
         
         super(Stock, self).push(card)
         
-    def getTopCards(self, numberOfCards):
+    def getTop(self, numberOfCards):
         originalCards = copy.deepcopy(self._cards)
         retCards = list()
         for _ in range(numberOfCards):
@@ -23,7 +23,7 @@ class Stock(CardStack):
                 retCards.append(originalCards.pop())
         return retCards
 
-    def removeTopCards(self, numberOfCards):
+    def removeTop(self, numberOfCards):
         for _ in range(numberOfCards):
             if not self.empty():
                 self.pop()
