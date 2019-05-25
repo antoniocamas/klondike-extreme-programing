@@ -25,9 +25,6 @@ class Card(object):
     def getSuit(self):
         return self._suit
     
-    def getColor(self):
-        return self._suit.getColor()
-        
     def flip(self):
         self._faceUp = not self._faceUp
 
