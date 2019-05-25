@@ -2,6 +2,7 @@ import unittest
 from tfd.exception import InvalidCard
 from builders.stock_builder import StockBuilder
 from builders.card_builder import CardBuilder
+from helpers.cardstack import CardStackHelper
 
 class StockTest(unittest.TestCase):
 
@@ -21,15 +22,15 @@ class StockTest(unittest.TestCase):
     def test_GivenAStock_whenPushFaceUp_ThenException(self):
         stock = StockBuilder().build()
         with self.assertRaises(InvalidCard) as context:
-            stock.push(CardBuilder().faceUp().build())
+            stock.addToTop(CardBuilder().faceUp().build())
 
     def test_GivenAStock_whenremoveTopCards_ThenXcardsRemoved(self):
-        builder = StockBuilder().cards(4)
-        stock = builder.build()
+        stock = StockBuilder().cards(4).build()
+        originalCards = CardStackHelper.fromCardStack(stock).getCards()
         stock.removeTop(1)
-        self.assertEqual(stock.getTop(1), [builder.getCards()[-2]])
+        self.assertEqual(stock.getTop(1), [originalCards[-2]])
         stock.removeTop(1)
-        self.assertEqual(stock.getTop(1), [builder.getCards()[-3]])
+        self.assertEqual(stock.getTop(1), [originalCards[-3]])
         stock.removeTop(2)
         self.assertTrue(stock.empty())
 

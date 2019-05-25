@@ -1,4 +1,4 @@
-from tfd.card import Card
+from builders.card_builder import CardBuilder
 from tfd.suit import Suit
 from tfd.number import Number
 from tfd.stock import Stock
@@ -13,14 +13,10 @@ class StockBuilder(object):
                     
     def cards(self, numberOfCards):
         for suit, number in zip(Suit, Number):
-            self._cards.append(Card(suit, number))
+            self._cards.append(CardBuilder().suit(suit).number(number).build())
             if len(self._cards) == numberOfCards:
                 return self
         return self
 
     def build(self):
-        stock = Stock()
-        for card in self._cards:
-            stock.push(card)
-
-        return stock
+        return Stock(self._cards)

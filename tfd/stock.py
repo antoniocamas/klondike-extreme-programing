@@ -7,7 +7,7 @@ class Stock(object):
     def __init__(self, cards=list()):
         self._cards = cards
 
-    def push(self, card):
+    def addToTop(self, card):
         if card.isFaceUp():
             raise exception.InvalidCard(str(card))
         
