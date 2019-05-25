@@ -10,18 +10,18 @@ class Stock(object):
     def addToTop(self, card):
         if card.isFaceUp():
             raise exception.InvalidCard(str(card))
-        
+
         self._cards.append(card)
-        
+
     def empty(self):
         return not self._cards
 
     def getTop(self, numberOfCards=None):
         if not numberOfCards:
             return self._getLastCards(1)[0]
-        
+
         return self._getLastCards(numberOfCards)
-    
+
     def _getLastCards(self, numberOfCards):
         return [x for x in reversed(self._cards[-numberOfCards:])]
 

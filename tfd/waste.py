@@ -8,9 +8,9 @@ class Waste(object):
     def addToTop(self, card):
         if not card.isFaceUp():
             raise exception.InvalidCard(str(card))
-        
+
         self._cards.append(card)
-        
+
     def getTop(self):
         return self._cards[-1]
 
@@ -19,4 +19,3 @@ class Waste(object):
 
     def empty(self):
         return not self._cards
-    

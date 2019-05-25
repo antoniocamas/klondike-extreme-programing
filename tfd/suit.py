@@ -7,7 +7,7 @@ class Suit(Enum):
     DIAMONDS = (Color.RED, 'D')
     PIKES = (Color.BLACK, 'P')
 
-    
+
     def __init__(self, color, initial):
         self._color = color
         self._initial = initial

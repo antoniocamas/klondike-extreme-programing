@@ -12,13 +12,9 @@ class Error(Enum):
     NO_FIT_PILE = ("It doesn't fit in the Pile")
     SAME_PILE = ("It is the same Pile")
     NO_ENOUGH_CARDS_PILE = ("Not enough cards in the pile")
-    
+
     def __init__(self, message):
         self._message = message
 
     def getMessage(self):
         return self._message
-
-        
-
-                                                        

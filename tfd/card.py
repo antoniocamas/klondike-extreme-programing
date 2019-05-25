@@ -28,12 +28,11 @@ class Card(object):
     def isNextTo(self, otherCard):
         if otherCard._number.getValue() +1 == self._number.getValue():
             return True
-
         return False
 
     def isSameSuit(self, suit):
         return self._suit == suit
-    
+
     def isSameColor(self, otherCard):
         return self._suit.getColor() == otherCard._suit.getColor()
 

@@ -12,16 +12,16 @@ from tfd.error import Error
 class Game(object):
 
     NUMBER_OF_PILES = 7
-    
+
     def __init__(self):
 
         cards = list()
         for suit in Suit:
             for number in Number:
                 cards.append(Card(suit, number))
-                
+
         shuffle(cards)
-        
+
         self._foundations = dict()
         for suit in Suit:
             self._foundations[suit] = Foundation(suit)
@@ -35,7 +35,7 @@ class Game(object):
 
         self._waste = Waste(list())
         self._stock = Stock(cards)
-        
+
     def getFoundations(self):
         return self._foundations
 
@@ -47,7 +47,7 @@ class Game(object):
 
     def getStock(self):
         return self._stock
-    
+
     def isFinished(self):
         for suit in Suit:
             if not self._foundations[suit].isComplete():
@@ -60,7 +60,7 @@ class Game(object):
     def moveFromStockToWaste(self):
         if self._stock.empty:
             return Error.EMPTY_STOCK
-        
+
         cards = self._stock.takeTop(1)
         for card in cards:
             card.flip()
@@ -79,7 +79,7 @@ class Game(object):
     def moveFromWasteToStock(self):
         if self._waste.empty():
             return Error.EMPTY_WASTE
-        
+
         if not self._stock.empty():
             return Error.NO_EMPTY_STOCK
 
@@ -89,7 +89,7 @@ class Game(object):
             self._waste.removeTop()
             card.flip()
             cards.append(card)
-            
+
         self._stock = Stock(cards)
 
     def moveFromWasteToPile(self, numberOfPile):
@@ -111,7 +111,7 @@ class Game(object):
 
         self._piles[numberOfPile-1].addToTop(self._foundations[suit].getTop())
         self._foundations[suit].removeTop()
-        
+
     def moveFromPileToFoundation(self, numberOfPile, suit):
         if self._piles[numberOfPile-1].empty():
             return Error.EMPTY_PILE
