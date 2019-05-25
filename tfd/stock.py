@@ -16,9 +16,6 @@ class Stock(object):
     def pop(self):
         return self._cards.pop()
 
-    def peek(self):
-        return self._cards[-1]
-
     def empty(self):
         return not self._cards
         
