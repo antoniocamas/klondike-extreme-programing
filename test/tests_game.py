@@ -92,7 +92,7 @@ class GameTest(unittest.TestCase):
         pileNumber = 1
         cardToMove = CardBuilder().suit(Suit.PIKES).number(Number.ACE).faceUp().build()
         game = GameBuilder()\
-               .cardInPile(pileNumber, CardBuilder().build())\
+               .cardInPile(pileNumber, CardBuilder().faceUp().build())\
                .cardInPile(pileNumber, cardToMove)\
                .build()
         self.assertIsNone(game.moveFromPileToFoundation(pileNumber, Suit.PIKES))
@@ -108,7 +108,7 @@ class GameTest(unittest.TestCase):
         pileNumber = 1
         cardToMove = CardBuilder().suit(Suit.PIKES).number(Number.ACE).faceUp().build()
         game = GameBuilder()\
-               .cardInPile(pileNumber, CardBuilder().build())\
+               .cardInPile(pileNumber, CardBuilder().faceUp().build())\
                .cardInPile(pileNumber, cardToMove)\
                .build()
         self.assertEqual(
@@ -163,7 +163,7 @@ class GameTest(unittest.TestCase):
         nCardsMoved = 3
         game = GameBuilder()\
                .pileWithFaceUpCards(pileNumberOrigin)\
-               .cardInPile(pileNumberDest, CardBuilder().number(Number.ACE).build()).build()
+               .cardInPile(pileNumberDest, CardBuilder().number(Number.ACE).faceUp().build()).build()
         self.assertEqual(
             game.moveFromPileToPile(pileNumberOrigin, pileNumberDest, nCardsMoved),
             Error.NO_FIT_PILE
@@ -175,7 +175,7 @@ class GameTest(unittest.TestCase):
         nCardsMoved = 5
         game = GameBuilder()\
                .pileWithFaceUpCards(pileNumberOrigin)\
-               .cardInPile(pileNumberDest, CardBuilder().number(Number.ACE).build()).build()
+               .cardInPile(pileNumberDest, CardBuilder().number(Number.ACE).faceUp().build()).build()
         self.assertEqual(
             game.moveFromPileToPile(pileNumberOrigin, pileNumberDest, nCardsMoved),
             Error.NO_ENOUGH_CARDS_PILE
@@ -187,7 +187,7 @@ class GameTest(unittest.TestCase):
         nCardsMoved = 1
         game = GameBuilder()\
                .pileWithFaceUpCards(pileNumberOrigin)\
-               .cardInPile(pileNumberDest, CardBuilder().number(Number.ACE).build()).build()
+               .cardInPile(pileNumberDest, CardBuilder().number(Number.ACE).faceUp().build()).build()
         self.assertEqual(
             game.moveFromPileToPile(pileNumberOrigin, pileNumberDest, nCardsMoved),
             Error.SAME_PILE

@@ -9,7 +9,7 @@ class Pile(object):
         self.flipFirstCard()
 
     def push(self, card):
-        self._cards.append(card)
+        self.addToTop(card)
         
     def pop(self):
         return self._cards.pop()
@@ -58,10 +58,13 @@ class Pile(object):
         return retCards
 
     def addToTop(self, cards):
+        if type(cards) != list:
+            cards = [cards]
+            
         for card in cards:
             if not card.isFaceUp():
                 raise exception.InvalidCard(str(card))
-            self.push(card)
+            self._cards.append(card)
             
     def removeTop(self, numberOfCards):
         if not numberOfCards:
