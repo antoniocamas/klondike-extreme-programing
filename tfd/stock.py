@@ -1,4 +1,3 @@
-import copy
 from tfd import exception
 from tfd.suit import Suit
 from tfd.number import Number
@@ -24,12 +23,7 @@ class Stock(object):
         return not self._cards
         
     def getTop(self, numberOfCards):
-        originalCards = copy.deepcopy(self._cards)
-        retCards = list()
-        for _ in range(numberOfCards):
-            if not self.empty():
-                retCards.append(originalCards.pop())
-        return retCards
+        return [x for x in reversed(self._cards[-numberOfCards:])]
 
     def removeTop(self, numberOfCards):
         for _ in range(numberOfCards):
