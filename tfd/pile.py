@@ -43,10 +43,7 @@ class Pile(object):
                 raise exception.InvalidCard(str(card))
             self._cards.append(card)
             
-    def removeTop(self, numberOfCards):
-        if not numberOfCards:
-            return
-        
+    def removeTop(self, numberOfCards=1):
         for count in range(numberOfCards):
             if not self.empty():
                 self._cards.pop()

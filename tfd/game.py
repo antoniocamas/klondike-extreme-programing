@@ -116,7 +116,7 @@ class Game(object):
             return Error.NO_FIT_FOUNDATION
 
         self._foundations[suit].addToTop(self._piles[numberOfPile-1].getTop())
-        self._piles[numberOfPile-1].removeTop(1)
+        self._piles[numberOfPile-1].removeTop()
 
     def moveFromPileToPile(self,
                            pileNumberOrigin,
