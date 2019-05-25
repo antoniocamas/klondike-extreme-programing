@@ -16,8 +16,5 @@ class Number(Enum):
     QUEEN = 12
     KING = 13
 
-    
     def getValue(self):
         return self.value
-    
-    

@@ -40,6 +40,9 @@ class Card(object):
 
         return False
 
+    def isSameColor(self, otherCard):
+        return self._suit.getColor() == otherCard._suit.getColor()
+
     def toString(self):
         return "{} {} {}".format(
             str(self._suit), str(self._number),

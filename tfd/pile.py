@@ -59,7 +59,7 @@ class Pile(CardStack):
         if not self.peek().isFaceUp():
             return False
         
-        if self.peek().getColor() != card.getColor() and \
+        if (not self.peek().isSameColor(card)) and \
            self.peek().isNextTo(card):
             return True
         

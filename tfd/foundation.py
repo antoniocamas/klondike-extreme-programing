@@ -35,3 +35,5 @@ class Foundation(CardStack):
 
         if card.isNextTo(self.peek()):
             return True
+
+        return False

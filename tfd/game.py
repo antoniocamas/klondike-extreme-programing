@@ -57,7 +57,6 @@ class Game(object):
     def clear(self):
         self.__init__()
 
-
     def moveFromStockToWaste(self):
         if self._stock.empty:
             return Error.EMPTY_STOCK
