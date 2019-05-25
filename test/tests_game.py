@@ -155,7 +155,7 @@ class GameTest(unittest.TestCase):
         cardsInPile = CardStackHelper.fromCardStack(game.getPiles()[pileNumberOrigin-1]).getCards()
         self.assertIsNone(game.moveFromPileToPile(pileNumberOrigin, pileNumberDest, nCardsMoved))
         cardsInPile[0].flip()
-        self.assertEqual(game.getPiles()[pileNumberOrigin-1].pop(), cardsInPile[0])
+        self.assertEqual(game.getPiles()[pileNumberOrigin-1].getTop(), cardsInPile[0])
         
     def test_GivenAMoveThatDontFit_WhenMoveFromPileToPile_ThenError(self):
         pileNumberOrigin = 1

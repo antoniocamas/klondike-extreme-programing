@@ -8,8 +8,8 @@ class Pile(object):
         self._number = number
         self.flipFirstCard()
 
-    def pop(self):
-        return self._cards.pop()
+    # def pop(self):
+    #     return self._cards.pop()
 
     def empty(self):
         return not self._cards
@@ -61,7 +61,7 @@ class Pile(object):
         
         for count in range(numberOfCards):
             if not self.empty():
-                self.pop()
+                self._cards.pop()
 
     def isFittingIn(self, card):
         if not card.isFaceUp():
