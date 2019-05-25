@@ -18,7 +18,7 @@ class Foundation(object):
     def pop(self):
         return self._cards.pop()
 
-    def peek(self):
+    def getTop(self):
         return self._cards[-1]
 
     def empty(self):
@@ -40,7 +40,7 @@ class Foundation(object):
            else:
                return False
 
-        if card.isNextTo(self.peek()):
+        if card.isNextTo(self.getTop()):
             return True
 
         return False
