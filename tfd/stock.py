@@ -13,9 +13,6 @@ class Stock(object):
         
         self._cards.append(card)
         
-    def pop(self):
-        return self._cards.pop()
-
     def empty(self):
         return not self._cards
 
