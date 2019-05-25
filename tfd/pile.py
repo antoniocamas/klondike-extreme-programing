@@ -1,14 +1,25 @@
 from tfd import exception
-from tfd.cardstack import CardStack
 from tfd.number import Number
 
-class Pile(CardStack):
+class Pile(object):
 
     def __init__(self, number, cards):
-        super(Pile, self).__init__(cards)
+        self._cards = cards
         self._number = number
         self.flipFirstCard()
 
+    def push(self, card):
+        self._cards.append(card)
+        
+    def pop(self):
+        return self._cards.pop()
+
+    def peek(self):
+        return self._cards[-1]
+
+    def empty(self):
+        return not self._cards
+    
     def getNumber(self):
         return self._number
 
