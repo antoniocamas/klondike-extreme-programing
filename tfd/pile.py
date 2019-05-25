@@ -8,9 +8,6 @@ class Pile(object):
         self._number = number
         self.flipFirstCard()
 
-    def push(self, card):
-        self.addToTop(card)
-        
     def pop(self):
         return self._cards.pop()
 

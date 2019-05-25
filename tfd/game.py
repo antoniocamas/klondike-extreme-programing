@@ -97,7 +97,7 @@ class Game(object):
         if not self._piles[numberOfPile-1].isFittingIn(self._waste.getTop()):
             return Error.NO_FIT_PILE
 
-        self._piles[numberOfPile-1].push(self._waste.pop())
+        self._piles[numberOfPile-1].addToTop(self._waste.pop())
 
     def moveFromFoundationToPile(self, suit, numberOfPile):
         if self._foundations[suit].empty():
@@ -106,7 +106,7 @@ class Game(object):
         if not self._piles[numberOfPile-1].isFittingIn(self._foundations[suit].getTop()):
             return Error.NO_FIT_PILE
 
-        self._piles[numberOfPile-1].push(self._foundations[suit].pop())
+        self._piles[numberOfPile-1].addToTop(self._foundations[suit].pop())
         
     def moveFromPileToFoundation(self, numberOfPile, suit):
         if self._piles[numberOfPile-1].empty():

@@ -67,7 +67,7 @@ class GameBuilder(object):
         return self
 
     def cardInPile(self, pileNumber, card):
-        self._game._piles[pileNumber-1].push(card)
+        self._game._piles[pileNumber-1].addToTop(card)
         return self
 
     def pileEmpty(self, pileNumber):
