@@ -9,7 +9,7 @@ class Card(object):
         self._faceUp = False
 
     def __eq__(self, other):
-        if self._suit == other._suit and \
+        if self.isSameSuit(other._suit) and \
            self.isSameNumber(other._number) and \
            self._faceUp == other._faceUp:
             return True
