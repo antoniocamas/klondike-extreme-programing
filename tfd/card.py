@@ -19,9 +19,6 @@ class Card(object):
     def __repr__(self):
         return self.toString()
 
-    def getSuit(self):
-        return self._suit
-    
     def flip(self):
         self._faceUp = not self._faceUp
 
@@ -34,6 +31,9 @@ class Card(object):
 
         return False
 
+    def isSameSuit(self, suit):
+        return self._suit == suit
+    
     def isSameColor(self, otherCard):
         return self._suit.getColor() == otherCard._suit.getColor()
 

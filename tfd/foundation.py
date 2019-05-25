@@ -24,7 +24,7 @@ class Foundation(CardStack):
         return len(self._cards) == self.CARDS_PER_SUIT
 
     def isFittingIn(self, card):
-        if not card.isFaceUp() or self._suit != card.getSuit():
+        if (not card.isFaceUp()) or (not card.isSameSuit(self._suit)):
             return False
         
         if self.empty():
