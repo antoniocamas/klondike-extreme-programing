@@ -1,21 +1,28 @@
 from tfd import exception
-from tfd.cardstack import CardStack
 from tfd.suit import Suit
 from tfd.number import Number
 
-class Foundation(CardStack):
+class Foundation(object):
 
     CARDS_PER_SUIT = 13
 
     def __init__(self, suit):
-        super(Foundation, self).__init__(list())
+        self._cards = list()
         self._suit = suit
 
     def push(self, card):
         if not card.isFaceUp():
             raise exception.InvalidCard(str(card))
+        self._cards.append(card)
         
-        super(Foundation, self).push(card)
+    def pop(self):
+        return self._cards.pop()
+
+    def peek(self):
+        return self._cards[-1]
+
+    def empty(self):
+        return not self._cards
         
     def getSuit(self):
         return self._suit
