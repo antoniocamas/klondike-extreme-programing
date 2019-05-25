@@ -25,42 +25,42 @@ class FoundationTest(unittest.TestCase):
     def test_GivenAemptyFoundation_whenAceofSuitAsksFitsIn_ReturnTrue(self):
         foundation = FoundationBuilder().suit(Suit.PIKES).build()
         card = CardBuilder().suit(Suit.PIKES).number(Number.ACE).faceUp().build()
-        self.assertTrue(foundation.fitsIn(card))
+        self.assertTrue(foundation.isFittingIn(card))
         
     def test_GivenAemptyFoundation_whenAceoFaceDownAsksFitsIn_ReturnFalse(self):
         foundation = FoundationBuilder().suit(Suit.PIKES).build()
         card = CardBuilder().suit(Suit.PIKES).number(Number.ACE).build()
-        self.assertFalse(foundation.fitsIn(card))
+        self.assertFalse(foundation.isFittingIn(card))
         
     def test_GivenAemptyFoundation_whenAceofOtherSuitAsksFitsIn_ReturnFalse(self):
         foundation = FoundationBuilder().suit(Suit.CLOVERS).build()
         card = CardBuilder().suit(Suit.PIKES).number(Number.ACE).build()
-        self.assertFalse(foundation.fitsIn(card))
+        self.assertFalse(foundation.isFittingIn(card))
         
     def test_GivenAemptyFoundation_whenNotAceAsksFitsIn_ReturnFalse(self):
         foundation = FoundationBuilder().suit(Suit.PIKES).build()
         card = CardBuilder().suit(Suit.PIKES).number(Number.TWO).faceUp().build()
-        self.assertFalse(foundation.fitsIn(card))
+        self.assertFalse(foundation.isFittingIn(card))
         
     def test_GivenNotemptyFoundation_whenCardMuchBiggerAskFitsIn_ReturnFalse(self):
         foundation = FoundationBuilder().suit(Suit.PIKES).cards(3).build()
         card = CardBuilder().suit(Suit.PIKES).number(Number.FIVE).faceUp().build()
-        self.assertFalse(foundation.fitsIn(card))
+        self.assertFalse(foundation.isFittingIn(card))
 
     def test_GivenNotemptyFoundation_whenCardOtherSuitAskFitsIn_ReturnFalse(self):
         foundation = FoundationBuilder().suit(Suit.PIKES).cards(3).build()
         card = CardBuilder().suit(Suit.CLOVERS).number(Number.FOUR).faceUp().build()
-        self.assertFalse(foundation.fitsIn(card))
+        self.assertFalse(foundation.isFittingIn(card))
         
     def test_GivenNotemptyFoundation_whenCardthatFitsAskFitsIn_ReturnTrue(self):
         foundation = FoundationBuilder().suit(Suit.PIKES).cards(3).build()
         card = CardBuilder().suit(Suit.PIKES).number(Number.FOUR).faceUp().build()
-        self.assertTrue(foundation.fitsIn(card))
+        self.assertTrue(foundation.isFittingIn(card))
 
     def test_GivenNotemptyFoundation_whenCardFaceDownAskFitsIn_ReturnFalse(self):
         foundation = FoundationBuilder().suit(Suit.PIKES).cards(3).build()
         card = CardBuilder().suit(Suit.PIKES).number(Number.FOUR).build()
-        self.assertFalse(foundation.fitsIn(card))
+        self.assertFalse(foundation.isFittingIn(card))
         
     def test_GivenemptyFoundation_whenAskEmpty_ReturnTrue(self):
         foundation = FoundationBuilder().build()
