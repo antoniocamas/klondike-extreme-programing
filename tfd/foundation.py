@@ -22,15 +22,9 @@ class Foundation(CardStack):
         return len(self._cards) == 13
 
     def fitsIn(self, card):
-        if not card.isFaceUp():
+        if not card.isFaceUp() or self._suit != card.getSuit():
             return False
         
-        if self._suit != card.getSuit():
-            return False
-
-        if not card.isFaceUp():
-            return False
-
         if self.empty():
            if card.getNumber() == Number.ACE:
                return True
