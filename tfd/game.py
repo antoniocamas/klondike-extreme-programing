@@ -141,4 +141,4 @@ class Game(object):
 
         self._piles[pileNumberOrigin-1].removeTop(numberOfCardsToMove)
         self._piles[pileNumberDest-1].addToTop(cardsToMove)
-        self._piles[pileNumberOrigin-1].flipFirstCard()
+        self._piles[pileNumberOrigin-1].turneUpFirstCardIfNeeded()

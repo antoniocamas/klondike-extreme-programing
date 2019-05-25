@@ -6,7 +6,7 @@ class Pile(object):
     def __init__(self, number, cards):
         self._cards = cards
         self._number = number
-        self.flipFirstCard()
+        self.turneUpFirstCardIfNeeded()
 
     def empty(self):
         return not self._cards
@@ -64,7 +64,7 @@ class Pile(object):
 
         return False
 
-    def flipFirstCard(self):
+    def turneUpFirstCardIfNeeded(self):
         if self.empty():
             return
 
