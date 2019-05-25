@@ -10,7 +10,7 @@ class Card(object):
 
     def __eq__(self, other):
         if self._suit == other._suit and \
-           self._number == other._number and \
+           self.isSameNumber(other._number) and \
            self._faceUp == other._faceUp:
             return True
 
@@ -39,6 +39,9 @@ class Card(object):
 
     def isSameColor(self, otherCard):
         return self._suit.getColor() == otherCard._suit.getColor()
+
+    def isSameNumber(self, number):
+        return self._number == number
 
     def toString(self):
         return "{} {} {}".format(

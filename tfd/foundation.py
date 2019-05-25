@@ -28,7 +28,7 @@ class Foundation(CardStack):
             return False
         
         if self.empty():
-           if card.getNumber() == Number.ACE:
+           if card.isSameNumber(Number.ACE):
                return True
            else:
                return False
