@@ -46,9 +46,6 @@ class Pile(CardStack):
             if self._cards:
                 self.pop()
 
-        self.flipFirstCard()
-
-
     def fitsIn(self, card):
         if not card.isFaceUp():
             return False

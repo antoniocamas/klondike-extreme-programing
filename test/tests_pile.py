@@ -78,7 +78,7 @@ class PileTest(unittest.TestCase):
         pile.removeTop(2)
         self.assertEqual(pile.getTop(3), [card])
 
-    def test_GivenNotEmtpyPile_WhenremoveTop_TopCardisFaceUp(self):
+    def test_GivenNotEmtpyPile_WhenremoveTop_TopCardisFaceDown(self):
         card = CardBuilder().build()
         otherCard = CardBuilder().suit(Suit.HEARTS).build()
         topCard = CardBuilder().suit(Suit.DIAMONDS).build()
@@ -86,7 +86,7 @@ class PileTest(unittest.TestCase):
         pile = PileBuilder().card(card).card(otherCard).card(topCard).build()
         pile.removeTop(2)
         returnedCard = pile.getTop(3)[0]
-        self.assertTrue(returnedCard.isFaceUp())
+        self.assertFalse(returnedCard.isFaceUp())
 
     def test_GivenEmtpyPile_WhenremoveTop_thePileStillEmpyt(self):
         pile = PileBuilder().build()
