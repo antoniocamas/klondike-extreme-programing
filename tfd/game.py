@@ -33,7 +33,7 @@ class Game(object):
                 cardsForPile.append(cards.pop())
             self._piles.append(Pile(index, cardsForPile))
 
-        self._waste = Waste(list())
+        self._waste = Waste()
         self._stock = Stock(cards)
 
     def getFoundations(self):

@@ -54,7 +54,7 @@ class GameBuilder(object):
         if not card.isFaceUp():
             card.flip()
         if not self._waste:
-            self._waste = Waste(list())
+            self._waste = Waste()
 
         self._waste.addToTop(card)
         return self
@@ -63,7 +63,10 @@ class GameBuilder(object):
         cards = list()
         for suit, number in zip(Suit, Number):
             cards.append(CardBuilder().suit(suit).number(number).faceUp().build())
-        self._waste = Waste(cards)
+        self._waste = Waste()
+        for card in cards:
+            self._waste.addToTop(card)
+            
         return self
 
     def cardInPile(self, pileNumber, card):

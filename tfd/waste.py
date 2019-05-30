@@ -2,8 +2,8 @@ from tfd import exception
 
 class Waste(object):
 
-    def __init__(self, cards):
-        self._cards = cards
+    def __init__(self):
+        self._cards = list()
 
     def addToTop(self, card):
         if not card.isFaceUp():

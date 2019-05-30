@@ -12,4 +12,7 @@ class WasteBuilder(object):
         self._cards.append(card)
 
     def build(self):
-        return Waste(self._cards)
+        waste = Waste()
+        for card in self._cards:
+            waste.addToTop(card)
+        return waste
