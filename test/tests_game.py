@@ -27,13 +27,7 @@ class GameTest(unittest.TestCase):
         self.assertTrue(gameHelper.isWasteInInitialState())
         self.assertTrue(gameHelper.isStockInitialState())
         
-    def test_GivenAGameWithCardInStock_WhenMoveFromStockToWaste_ThenNoCardMoved(self):
-        game = GameBuilder().buid()
-        cardTobeMoved = game.getStock().peek()
-        self.assertIsNone(game.moveFromStockToWaste())
-        self.assertEqual(game.getWaste().peek(), cardToBeMoved)
-
-    def test_GivenAGameWithCardInStock_WhenMoveFromStockToWaste_ThenNoCardMoved(self):
+    def test_GivenAGameWithoutCardInStock_WhenMoveFromStockToWaste_ThenNoCardMoved(self):
         game = GameBuilder().stockEmpty().build()
         self.assertEqual(game.moveFromStockToWaste(), Error.EMPTY_STOCK)
 
